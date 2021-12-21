@@ -2,16 +2,12 @@
 
 ## 실행
 
----
-
 ```bash
 cd stringcat-frontend
 npm run dev
 ```
 
 ## 프로젝트 환경
-
----
 
 - React
 - Next
@@ -33,8 +29,6 @@ npm run dev
 - 리덕스 구조 : Ducks Pattern
 
 ## 패키지 구조
-
----
 
 ```
 Stringcat

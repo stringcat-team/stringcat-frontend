@@ -7,7 +7,8 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
   ],
-  "parserOptions": {
-    "project": "./tsconfig.json"
+  "parser": "@typescript-eslint/parse",
+  "rules": {
+    "arrow-body-style" : 0
   }
 }

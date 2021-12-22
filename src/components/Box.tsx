@@ -48,14 +48,7 @@ const StyledDiv = styled("div")<BoxProps>(
   }),
 );
 
-const Box: React.FC<BoxProps> = ({
-  children,
-  display,
-  alignItems,
-  justifyContent,
-  flexDirection,
-  sx,
-}: BoxProps) => {
+const Box = ({ children, display, alignItems, justifyContent, flexDirection, sx }: BoxProps) => {
   return (
     <StyledDiv
       display={display}

@@ -1,9 +1,11 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import { ThemeProvider } from "@emotion/react";
-import useCustomTheme from "../src/hooks/useCustomTheme";
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import { ThemeProvider } from '@emotion/react';
+import useCustomTheme from '../src/hooks/useCustomTheme';
+import { NextPage } from 'next';
+import wrapper from '../src/redux/store/wrapper';
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
   const { theme } = useCustomTheme();
 
   return (
@@ -11,6 +13,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Component {...pageProps} />
     </ThemeProvider>
   );
-}
+};
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

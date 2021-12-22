@@ -1,15 +1,20 @@
-import styled from "@emotion/styled";
-import Head from "next/head";
-import type { NextPage } from "next";
+import styled from '@emotion/styled';
+import Head from 'next/head';
+import type { NextPage } from 'next';
+import { useSelector } from 'react-redux';
+import { RootStateInterface } from '../src/interfaces/redux/rootState';
+import { ConfigState } from '../src/interfaces/redux/reducers/config.interfaces';
 
-const StyledDiv = styled("div")(({ theme }) => ({
-  background: "black",
+const StyledDiv = styled('div')(({ theme }) => ({
+  background: 'black',
   color: theme.colors.primary,
-  display: "inline-block",
+  display: 'inline-block',
   padding: 8,
 }));
 
-const Home: NextPage = () => {
+const Index: NextPage = () => {
+  const { mode } = useSelector((state: RootStateInterface): ConfigState => state.config);
+  console.log('current mode is :', mode);
   return (
     <>
       <Head>
@@ -22,4 +27,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Index;

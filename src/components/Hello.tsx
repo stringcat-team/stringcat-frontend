@@ -16,7 +16,7 @@ const Hello = () => {
       <Box sx={{ padding: 8, borderRadius: 8, border: `2px solid ${theme.colors.primary}` }}>
         Hello it's String Cat!
       </Box>
-      <Button ref={testRef} onClick={onClick}>
+      <Button ref={testRef} onClick={onClick} sx={{ padding: 8 }}>
         테스트
       </Button>
     </Box>

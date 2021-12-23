@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import isPropValid from "@emotion/is-prop-valid";
 import React, { CSSProperties } from "react";
 
-interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   sx?: CSSProperties;
   children?: React.ReactNode;
   // restProps: object;
@@ -10,13 +10,12 @@ interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
 
 const StyledButton = styled("button", {
   shouldForwardProp: (prop) => isPropValid(prop),
-})<ButtonProps>((props) => ({ ...props.sx }));
+})<ButtonProps>(({ sx }) => ({ ...sx }));
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, sx, ...restProps }, ref) => {
-    console.log(restProps);
     return (
-      <StyledButton ref={ref} {...restProps}>
+      <StyledButton ref={ref} sx={sx} {...restProps}>
         {children}
       </StyledButton>
     );

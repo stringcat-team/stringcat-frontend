@@ -6,7 +6,7 @@ interface LayoutProps {
   pageTitle?: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, pageTitle = "" }: LayoutProps) => {
+function Layout({ children, pageTitle }: LayoutProps) {
   return (
     <>
       <Head>
@@ -17,6 +17,11 @@ const Layout: React.FC<LayoutProps> = ({ children, pageTitle = "" }: LayoutProps
       {children}
     </>
   );
+}
+
+Layout.defaultProps = {
+  children: null,
+  pageTitle: "",
 };
 
 export default Layout;

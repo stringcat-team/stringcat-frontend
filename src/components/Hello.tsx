@@ -7,9 +7,9 @@ const Hello = () => {
   const theme = useTheme();
   const testRef = useRef<HTMLButtonElement>(null);
 
-  function onClick() {
-    console.log(testRef.current);
-  }
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(e);
+  };
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>

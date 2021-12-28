@@ -1,9 +1,9 @@
 import styled, { CSSObject } from "@emotion/styled";
 import React, { ReactNode } from "react";
 
-type display = "flex" | "block" | "inline-block" | "inline";
+type Display = "flex" | "block" | "inline-block" | "inline";
 
-type alignItems =
+type AlignItems =
   | "center"
   | "start"
   | "end"
@@ -15,7 +15,7 @@ type alignItems =
   | "baseline"
   | "normal";
 
-type justifyContent =
+type JustifyContent =
   | "center"
   | "start"
   | "end"
@@ -27,14 +27,14 @@ type justifyContent =
   | "stretch"
   | "baseline";
 
-type flexDirection = "row" | "row-reverse" | "column" | "column-reverse";
+type FlexDirection = "row" | "row-reverse" | "column" | "column-reverse";
 
 interface BoxProps {
   children?: ReactNode;
-  display?: display;
-  alignItems?: alignItems;
-  justifyContent?: justifyContent;
-  flexDirection?: flexDirection;
+  display?: Display;
+  alignItems?: AlignItems;
+  justifyContent?: JustifyContent;
+  flexDirection?: FlexDirection;
   sx?: CSSObject;
 }
 
@@ -60,6 +60,15 @@ const Box = ({ children, display, alignItems, justifyContent, flexDirection, sx 
       {children}
     </StyledDiv>
   );
+};
+
+Box.defaultProps = {
+  display: "block",
+  alignItems: null,
+  justifyContent: null,
+  flexDirection: null,
+  sx: {},
+  children: null,
 };
 
 export default Box;

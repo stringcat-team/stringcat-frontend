@@ -1,5 +1,5 @@
-import { SetTheme, ConfigActionTypes } from './../../interfaces/redux/reducers/config.interfaces';
-import { all, call, fork, put, takeLatest } from '@redux-saga/core/effects';
+import { all, call, fork, put, takeLatest } from "@redux-saga/core/effects";
+import { ConfigActionTypes, SetTheme } from "../../@types/redux/reducers/config.interfaces";
 
 function* setTheme({ payload }: SetTheme) {
   const {} = payload;

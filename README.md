@@ -43,8 +43,7 @@ Stringcat
 │   └─api : 호출 디렉토리
 │
 └─ src
-    ├─interfaces : 인터페이스 정의 디렉토리
-    ├─types : 타입 정의 디렉토리
+    ├─@types : 타입 정의 디렉토리
     ├─components : 컴포넌트 디렉토리
     ├─hook : 커스텀 훅 디렉토리
     ├─utils : 유틸리티 디렉토리

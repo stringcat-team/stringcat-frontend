@@ -13,6 +13,8 @@ const StyledButton = styled("button", {
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, sx, ...restProps }: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
+    const test = {};
+
     return (
       <StyledButton ref={ref} sx={sx} {...restProps}>
         {children}

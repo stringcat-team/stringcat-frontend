@@ -1,8 +1,8 @@
 import {
-  ConfigState,
-  ConfigActionTypes,
   ConfigActions,
-} from './../../interfaces/redux/reducers/config.interfaces';
+  ConfigActionTypes,
+  ConfigState,
+} from "../../@types/redux/reducers/config.interfaces";
 
 export const setTheme = (mode: string) => ({
   type: ConfigActionTypes.SET_THEME,
@@ -10,7 +10,7 @@ export const setTheme = (mode: string) => ({
 });
 
 const initialState: ConfigState = {
-  mode: 'light',
+  mode: "light",
 };
 
 const ConfigReducer = (state = initialState, action: ConfigActions): ConfigState => {

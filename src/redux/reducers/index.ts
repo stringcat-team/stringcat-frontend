@@ -1,12 +1,12 @@
-import { HYDRATE } from 'next-redux-wrapper';
-import { AnyAction, combineReducers, Reducer } from 'redux';
-import { RootStateInterface } from '../../interfaces/redux/rootState';
-import ConfigReducer from './config';
+import { HYDRATE } from "next-redux-wrapper";
+import { AnyAction, combineReducers, Reducer } from "redux";
+import { RootStateInterface } from "../../@types/redux/rootState";
+import ConfigReducer from "./config";
 
 const rootReducer: Reducer<RootStateInterface, AnyAction> = (state, action) => {
   switch (action.type) {
     case HYDRATE:
-      console.log('HYDRAGTE', action);
+      console.log("HYDRAGTE", action);
       return action.payload;
     default: {
       const combineReducer = combineReducers<RootStateInterface>({ config: ConfigReducer });

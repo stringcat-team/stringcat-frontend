@@ -5,15 +5,14 @@ import React, { CSSProperties } from "react";
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   sx?: CSSProperties;
   children?: React.ReactNode;
-  // restProps: object;
 }
 
 const StyledButton = styled("button", {
   shouldForwardProp: (prop) => isPropValid(prop),
-})<ButtonProps>(({ sx }) => ({ ...sx }));
+})<ButtonProps>(({ sx, theme }) => ({ ...sx, background: theme.colors.primary }));
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, sx, ...restProps }, ref) => {
+  ({ children, sx, ...restProps }: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) => {
     return (
       <StyledButton ref={ref} sx={sx} {...restProps}>
         {children}

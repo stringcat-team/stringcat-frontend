@@ -21,21 +21,21 @@ declare module "@emotion/react" {
         primary: string;
         secondary: string;
       };
-    };
-    background: {
-      default: string;
+      background: {
+        default: string;
+      };
     };
     shape: {
       borderRadius: number;
     };
     typo: {
       fontFamily: string;
-      h1: TextObject;
+      subtitle: TextObject;
       body: TextObject;
       body2: TextObject;
       caption: TextObject;
     };
-    shadows: [String];
+    shadows: string[number];
   }
 }
 
@@ -50,5 +50,6 @@ type ColorObject = {
   contrastText: string;
 };
 
-export type TypoVariant = "h1" | "body" | "body2" | "caption";
+export type TypoVariant = "subtitle" | "body" | "body2" | "caption";
 export type ButtonVariant = "primary" | "disabled";
+export type IconButtonVariant = "primary" | "disabled" | "filled";

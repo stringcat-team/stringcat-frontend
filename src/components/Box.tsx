@@ -63,7 +63,7 @@ const Box = ({ children, display, alignItems, justifyContent, flexDirection, sx 
 };
 
 Box.defaultProps = {
-  display: "block",
+  display: null,
   alignItems: null,
   justifyContent: null,
   flexDirection: null,

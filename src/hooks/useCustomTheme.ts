@@ -1,6 +1,6 @@
 export default function useCustomTheme<T>() {
   const fontFamily = "Noto Sans KR, Roboto, Arial, sans-serif";
-  const grid = 8;
+  const grid = 10;
   const spacing = (number: number) => number * grid;
   const theme = {
     mode: "light",
@@ -33,7 +33,7 @@ export default function useCustomTheme<T>() {
       },
     },
     shape: {
-      borderRadius: 4,
+      borderRadius: 5,
     },
     typo: {
       fontFamily,

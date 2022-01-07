@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import isPropValid from "@emotion/is-prop-valid";
 import React, { CSSProperties } from "react";
-import { ButtonVariant } from "../@types/emotion";
+import { IconButtonVariant } from "../@types/emotion";
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   sx?: CSSProperties;
   children?: React.ReactNode;
-  variant?: ButtonVariant;
+  variant?: IconButtonVariant;
 }
 
 const StyledButton = styled("button", {
@@ -15,12 +15,15 @@ const StyledButton = styled("button", {
   background: theme.colors.primary.color,
   outline: "none",
   border: "none",
-  borderRadius: theme.shape.borderRadius,
-  padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+  borderRadius: "100%",
   transition: "0.2s linear",
   cursor: "pointer",
   boxShadow: theme.shadows[1],
-  minWidth: 80,
+  width: 40,
+  height: 40,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   "&:hover": {
     background: theme.colors.disabled.color,
     color: theme.colors.primary.color,
@@ -32,10 +35,13 @@ const StyledButton = styled("button", {
       background: theme.colors.primary.color,
     },
   }),
+  ...(variant === "filled" && {
+    background: theme.colors.background.default,
+  }),
   ...sx,
 }));
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     { variant, children, sx, ...restProps }: ButtonProps,
     ref: React.ForwardedRef<HTMLButtonElement>,
@@ -48,10 +54,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   },
 );
 
-Button.defaultProps = {
+IconButton.defaultProps = {
   sx: {},
   children: null,
   variant: "primary",
 };
 
-export default Button;
+export default IconButton;

@@ -13,9 +13,10 @@ const StyledButton = styled("button", {
   shouldForwardProp: (prop) => isPropValid(prop),
 })<ButtonProps>(({ sx, theme, variant }) => ({
   background: theme.colors.primary.color,
+  color: theme.colors.primary.contrastText,
   outline: "none",
   border: "none",
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: 18,
   padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
   transition: "0.2s linear",
   cursor: "pointer",

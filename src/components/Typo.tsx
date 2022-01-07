@@ -1,28 +1,36 @@
 import isPropValid from "@emotion/is-prop-valid";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { CSSProperties } from "react";
 import { TypoVariant } from "../@types/emotion";
 
 interface TypoProps extends React.HTMLAttributes<HTMLElement> {
   variant?: TypoVariant;
   children?: React.ReactNode;
+  sx?: CSSProperties;
 }
 
 const StyledText = styled("p", { shouldForwardProp: (prop) => isPropValid(prop) })<TypoProps>(
-  ({ theme, variant }) => ({
-    fontSize: variant && theme.typo[variant]?.fontSize,
+  ({ theme, variant, sx }) => ({
+    ...(variant && { ...theme.typo[variant] }),
+    fontWeight: 500,
     padding: 0,
     margin: 0,
+    ...sx,
   }),
 );
 
-const Typo = ({ variant, children }: TypoProps) => {
-  return <StyledText variant={variant}>{children}</StyledText>;
+const Typo = ({ variant, sx, children }: TypoProps) => {
+  return (
+    <StyledText variant={variant} sx={sx}>
+      {children}
+    </StyledText>
+  );
 };
 
 Typo.defaultProps = {
   variant: "body",
   children: null,
+  sx: null,
 };
 
 export default Typo;

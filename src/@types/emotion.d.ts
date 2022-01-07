@@ -18,12 +18,15 @@ declare module "@emotion/react" {
       borderRadius: number;
     };
     typo: {
-      h1: {
-        fontSize: string;
-      };
-      body: {
-        fontSize: string;
-      };
+      h1: Typo;
+      body: Typo;
     };
   }
 }
+
+type TypoObject = {
+  fontSize: string;
+  fontWeight: number;
+};
+
+export type TypoVariant = "body" | "h1";

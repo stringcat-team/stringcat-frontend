@@ -2,6 +2,7 @@ import { useTheme } from "@emotion/react";
 import React, { useRef } from "react";
 import Box from "./Box";
 import Button from "./Button";
+import Typo from "./Typo";
 
 const Hello = () => {
   const theme = useTheme();
@@ -14,7 +15,7 @@ const Hello = () => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>
       <Box sx={{ padding: 8, borderRadius: 8, border: `2px solid ${theme.colors.primary}` }}>
-        Hello it's String Cat!
+        <Typo variant="h1"> Hello it's String Cat!</Typo>
       </Box>
       <Button ref={testRef} onClick={onClick} sx={{ padding: 8 }}>
         테스트

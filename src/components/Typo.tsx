@@ -5,12 +5,12 @@ import { TypoVariant } from "../@types/emotion";
 
 interface TypoProps extends React.HTMLAttributes<HTMLElement> {
   variant?: TypoVariant;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const StyledText = styled("p", { shouldForwardProp: (prop) => isPropValid(prop) })<TypoProps>(
   ({ theme, variant }) => ({
-    fontSize: variant && theme.typo[variant].fontSize,
+    fontSize: variant && theme.typo[variant]?.fontSize,
     padding: 0,
     margin: 0,
   }),
@@ -22,6 +22,7 @@ const Typo = ({ variant, children }: TypoProps) => {
 
 Typo.defaultProps = {
   variant: "body",
+  children: null,
 };
 
 export default Typo;

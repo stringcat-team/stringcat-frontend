@@ -15,9 +15,9 @@ const Hello = () => {
   return (
     <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>
       <Box sx={{ padding: 8, borderRadius: 8, border: `2px solid ${theme.colors.primary}` }}>
-        <Typo variant="h1"> Hello it's String Cat!</Typo>
+        <Typo variant="body"> Hello it's String Cat!</Typo>
       </Box>
-      <Button ref={testRef} onClick={onClick} sx={{ padding: 8 }}>
+      <Button ref={testRef} onClick={onClick} variant="disabled">
         테스트
       </Button>
     </Box>

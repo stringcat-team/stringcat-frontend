@@ -16,6 +16,14 @@ export default function useCustomTheme<T>() {
     shape: {
       borderRadius: 8,
     },
+    typo: {
+      h1: {
+        fontSize: "14px",
+      },
+      body: {
+        fontSize: "12px",
+      },
+    },
   };
 
   return { theme };

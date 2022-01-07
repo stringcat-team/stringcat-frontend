@@ -17,5 +17,13 @@ declare module "@emotion/react" {
     shape: {
       borderRadius: number;
     };
+    typo: {
+      h1: {
+        fontSize: string;
+      };
+      body: {
+        fontSize: string;
+      };
+    };
   }
 }

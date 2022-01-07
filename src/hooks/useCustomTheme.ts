@@ -23,7 +23,7 @@ export default function useCustomTheme<T>() {
         color: "#F1F1F1",
         contrastText: "#3F3F3F",
       },
-      divider: "rgba(0, 0, 0, 0.12)",
+      divider: "#C1C1C1",
       text: {
         primary: "#3F3F3F",
         secondary: "#C1C1C1",

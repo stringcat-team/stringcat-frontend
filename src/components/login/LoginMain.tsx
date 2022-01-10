@@ -1,23 +1,19 @@
-import { useTheme } from "@emotion/react";
-import styled from "@emotion/styled";
+import { Box, Typography, Button, styled, useTheme } from "@mui/material";
 import React from "react";
-import Box from "../Box";
-import Button from "../Button";
-import Typo from "../Typo";
 import LoginForm from "./LoginForm";
 import LoginSocialButtons from "./LoginSocialButtons";
-
-const StyldButton = styled("button")(({ theme }) => ({
-  background: theme.colors.background.default,
-  border: "none",
-  cursor: "pointer",
-  fontFamily: theme.typo.fontFamily,
-  fontSize: theme.typo.body.fontSize,
-}));
 
 interface LoginMainProps {
   onSignUp: () => void;
 }
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  borderRadius: 18,
+  "&:hover": {
+    background: theme.palette.primary.main,
+  },
+}));
 
 const LoginMain = ({ onSignUp }: LoginMainProps) => {
   const theme = useTheme();
@@ -26,38 +22,27 @@ const LoginMain = ({ onSignUp }: LoginMainProps) => {
   };
   return (
     <>
-      <Typo
-        variant="body"
+      <Typography
+        variant="body1"
         sx={{ textAlign: "center", paddingBottom: theme.spacing(3), paddingTop: theme.spacing(2) }}
       >
         개발자들을 위한 커뮤니티 stringcat
-      </Typo>
-      <Box display="flex" justifyContent="space-around" sx={{ marginBottom: theme.spacing(1) }}>
+      </Typography>
+      <Box display="flex" justifyContent="space-around" mb={1}>
         <LoginForm />
         <LoginSocialButtons />
       </Box>
       <Box display="flex" justifyContent="space-around">
-        <Box
-          sx={{ flex: 1, paddingRight: theme.spacing(2) }}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typo variant="body2" sx={{ color: theme.colors.text.secondary }}>
-            비밀번호를 잊으셨나요?
-          </Typo>
-          <Button>로그인 하기</Button>
+        <Box flex={1} pr={1} display="flex" justifyContent="space-between" alignItems="center">
+          <Typography variant="body2">비밀번호를 잊으셨나요?</Typography>
+          <Button variant="contained" disableElevation>
+            로그인 하기
+          </Button>
         </Box>
-        <Box
-          sx={{
-            flex: 1,
-            paddingLeft: theme.spacing(2),
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <StyldButton onClick={onClickEmail}>E-mail로 가입하기</StyldButton>
+        <Box flex={1} pl={2} display="flex" justifyContent="center" alignItems="center">
+          <StyledButton onClick={onClickEmail} variant="text" fullWidth>
+            E-mail로 가입하기
+          </StyledButton>
         </Box>
       </Box>
     </>

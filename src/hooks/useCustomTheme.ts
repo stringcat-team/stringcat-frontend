@@ -14,6 +14,10 @@ export default function useCustomTheme() {
         main: "#F1F1F1",
         contrastText: "#3F3F3F",
       },
+      text: {
+        primary: "#3f3f3f",
+        secondary: "#808183",
+      },
     },
     typography: {
       fontFamily,
@@ -25,6 +29,27 @@ export default function useCustomTheme() {
       },
       body2: {
         fontSize: "12px",
+      },
+    },
+    spacing: 10,
+    shape: {
+      borderRadius: 5,
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: "none",
+          },
+          contained: {
+            borderRadius: 18,
+          },
+          containedPrimary: {
+            "&:hover": {
+              background: "#F1F1F1",
+            },
+          },
+        },
       },
     },
   });

@@ -1,7 +1,6 @@
-import { useTheme } from "@emotion/react";
+import { Box, useTheme } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import Box from "../Box";
 
 interface LogoProps {
   email: boolean;

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import { Box, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import EmailVerifier from "./EmailVerifier";
 import LoginMain from "./LoginMain";
@@ -8,7 +8,7 @@ interface BoxProps {
   email: boolean;
 }
 
-const StyledBox = styled("div", { shouldForwardProp: (prop) => prop !== "email" })<BoxProps>(
+const StyledBox = styled(Box, { shouldForwardProp: (prop) => prop !== "email" })<BoxProps>(
   ({ theme, email }) => ({
     boxShadow: theme.shadows[3],
     borderRadius: theme.shape.borderRadius,

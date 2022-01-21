@@ -12,6 +12,8 @@
     "react/no-unescaped-entities" : 0,
     "no-unused-vars" : 0,
     "@typescript-eslint/no-unused-vars": 0,
-    "no-console" : 0
+    "no-console" : 0,
+    "default-param-last": 0,
+    "@typescript-eslint/default-param-last": 0
   }
 }

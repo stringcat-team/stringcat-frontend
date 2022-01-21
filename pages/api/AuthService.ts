@@ -9,7 +9,7 @@ class AuthService {
 
   static REFRESH_TOKEN = "/auth/refresh";
 
-  static getKaKoToken() {
+  static getKaKaoToken() {
     return new Promise((resolve, reject) => {
       (async () => {
         try {

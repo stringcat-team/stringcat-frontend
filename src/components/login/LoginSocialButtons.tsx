@@ -27,8 +27,25 @@ const LoginSocialButtons = () => {
     console.log(response);
   };
 
+  const onClickGithub = () => {
+    window.open(
+      `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_AUTH_KEY}`,
+      "_blank",
+      "width=500, height=700",
+    );
+  };
+
+  const onClickKakao = () => {
+    window.open(
+      `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_AUTH_KEY}&redirect_uri=http://localhost:3000/auth/callback&response_type=code`,
+      "_blank",
+      "width=500, height=700",
+    );
+  };
+
   return (
     <Box sx={{ flex: 1, paddingLeft: theme.spacing(2) }}>
+      <Button onClick={onClickKakao}>카카오 </Button>
       <KakaoLogin
         token={`${process.env.NEXT_PUBLIC_KAKAO_AUTH_KEY}`}
         onSuccess={onSuccess}
@@ -56,7 +73,7 @@ const LoginSocialButtons = () => {
         )}
       />
 
-      <StyledButton fullWidth>
+      <StyledButton fullWidth onClick={onClickGithub}>
         <Image src="/images/github_icon.png" width={20} height={20} />
         <Typography variant="body2" sx={{ paddingLeft: theme.spacing(1) }}>
           Github으로 로그인하기

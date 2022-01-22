@@ -1,38 +1,41 @@
-import { all, fork, takeLatest } from "@redux-saga/core/effects";
-import {
-  AuthActionTypes,
-  KakaoLoginRequest,
-  OauthRefreshTokenRequest,
-} from "../../@types/redux/reducers/auth.interface";
+import { put, all, fork, takeLatest, call } from "redux-saga/effects";
+import { AuthActionTypes, OauthLoginRequest } from "../../@types/redux/reducers/auth.interface";
+import AuthService, { OauthLoginReponse } from "../../../pages/api/AuthService";
+import { oauthLoginSuccess } from "../reducers/auth";
 
-const { KAKAO_LOGIN_REQUEST, OAUTH_REFRESH_TOKEN_REQUSET } = AuthActionTypes;
+const { OAUTH_LOGIN_REQUEST } = AuthActionTypes;
 
-function* kakaoLoginRequest({ payload }: KakaoLoginRequest) {
+function* oauthLoginRequest({ payload }: OauthLoginRequest) {
   try {
-    const { accessToken } = payload;
-    yield console.log(accessToken);
-  } catch (error) {
-    yield;
-  }
-}
+    const { code } = payload;
+    const type = localStorage.getItem("type");
 
-function* oauthRefreshTokenRequest({ payload }: OauthRefreshTokenRequest) {
-  try {
-    console.log(payload);
-    yield;
-  } catch (error) {
-    yield;
-  }
-}
+    let response: OauthLoginReponse;
 
-function* kakaoLoginRequestWatcher() {
-  yield takeLatest(AuthActionTypes.KAKAO_LOGIN_REQUEST, kakaoLoginRequest);
+    switch (type) {
+      case "kakao": {
+        response = yield call(() => AuthService.getKakaoToken(code));
+        break;
+      }
+      case "github": {
+        response = yield call(() => AuthService.getGithubToken(code));
+        break;
+      }
+      default:
+        throw new Error("unknown login");
+    }
+
+    console.log(response);
+    yield put(oauthLoginSuccess(response));
+  } catch (error) {
+    yield console.log(error);
+  }
 }
 
 function* oauthRefreshTokenRequestWatcher() {
-  yield takeLatest(OAUTH_REFRESH_TOKEN_REQUSET, oauthRefreshTokenRequest);
+  yield takeLatest(OAUTH_LOGIN_REQUEST, oauthLoginRequest);
 }
 
 export default function* AuthSaga() {
-  yield all([fork(kakaoLoginRequestWatcher), fork(oauthRefreshTokenRequestWatcher)]);
+  yield all([fork(oauthRefreshTokenRequestWatcher)]);
 }

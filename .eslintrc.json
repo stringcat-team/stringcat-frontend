@@ -4,6 +4,7 @@
     "project" : "./tsconfig.json"
   },
   "rules": {
+
     "arrow-body-style": 0,
     "jx-props-no-spreading" : 0,
     "react/react-in-jsx-scope" : 0,

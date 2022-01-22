@@ -1,5 +1,11 @@
 import { all, fork, takeLatest } from "@redux-saga/core/effects";
-import { AuthActionTypes, KakaoLoginRequest } from "../../@types/redux/reducers/auth.interface";
+import {
+  AuthActionTypes,
+  KakaoLoginRequest,
+  OauthRefreshTokenRequest,
+} from "../../@types/redux/reducers/auth.interface";
+
+const { KAKAO_LOGIN_REQUEST, OAUTH_REFRESH_TOKEN_REQUSET } = AuthActionTypes;
 
 function* kakaoLoginRequest({ payload }: KakaoLoginRequest) {
   try {
@@ -10,10 +16,23 @@ function* kakaoLoginRequest({ payload }: KakaoLoginRequest) {
   }
 }
 
+function* oauthRefreshTokenRequest({ payload }: OauthRefreshTokenRequest) {
+  try {
+    console.log(payload);
+    yield;
+  } catch (error) {
+    yield;
+  }
+}
+
 function* kakaoLoginRequestWatcher() {
   yield takeLatest(AuthActionTypes.KAKAO_LOGIN_REQUEST, kakaoLoginRequest);
 }
 
+function* oauthRefreshTokenRequestWatcher() {
+  yield takeLatest(OAUTH_REFRESH_TOKEN_REQUSET, oauthRefreshTokenRequest);
+}
+
 export default function* AuthSaga() {
-  yield all([fork(kakaoLoginRequestWatcher)]);
+  yield all([fork(kakaoLoginRequestWatcher), fork(oauthRefreshTokenRequestWatcher)]);
 }

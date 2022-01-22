@@ -1,6 +1,7 @@
 import { HYDRATE } from "next-redux-wrapper";
 import { AnyAction, combineReducers, Reducer } from "redux";
 import { RootStateInterface } from "../../@types/redux/rootState";
+import AuthReducer from "./auth";
 import ConfigReducer from "./config";
 
 const rootReducer: Reducer<RootStateInterface, AnyAction> = (state, action) => {
@@ -9,7 +10,10 @@ const rootReducer: Reducer<RootStateInterface, AnyAction> = (state, action) => {
       console.log("HYDRAGTE", action);
       return action.payload;
     default: {
-      const combineReducer = combineReducers<RootStateInterface>({ config: ConfigReducer });
+      const combineReducer = combineReducers<RootStateInterface>({
+        config: ConfigReducer,
+        auth: AuthReducer,
+      });
       return combineReducer(state, action);
     }
   }

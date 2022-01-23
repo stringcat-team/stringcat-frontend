@@ -2,7 +2,9 @@ import { Box, Typography, styled, Button } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { GITHUB_AUTH_KEY, GOOGLE_AUTH_KEY, KAKAO_AUTH_KEY } from "../../../pages/api/AuthService";
 import { Oauth } from "../../@types/redux/reducers/auth.interface";
+import { oauthLoginSuccess } from "../../redux/reducers/auth";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
@@ -21,31 +23,40 @@ const StyledButton = styled(Button)(({ theme }) => ({
 const OauthLogin: Oauth = {
   kakao: {
     text: "카카오톡으로 로그인 하기",
-    authKey: `${process.env.NEXT_PUBLIC_TEST_KAKAO_AUTH_KEY}`,
+    authKey: KAKAO_AUTH_KEY,
     url: "https://kauth.kakao.com/oauth/authorize?client_id=",
   },
   google: {
     text: "구글로 로그인하기",
-    authKey: `${process.env.NEXT_PUBLIC_GOOGLE_AUTH_KEY}`,
-    url: "",
+    authKey: GOOGLE_AUTH_KEY,
+    url: "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/analytics.readonly&client_id=",
   },
   github: {
     text: "Github으로 로그인하기",
-    authKey: `${process.env.NEXT_PUBLIC_GITHUB_AUTH_KEY}`,
+    authKey: GITHUB_AUTH_KEY,
     url: "https://github.com/login/oauth/authorize?client_id=",
   },
 };
 
-const LoginSocialButtons = () => {
+const LoginSocial = () => {
+  const dispatch = useDispatch();
   const onClickLogin = (type: string) => () => {
     const { url, authKey } = OauthLogin[type];
-    window.open(
+    const login = window.open(
       `${url}${authKey}&redirect_uri=http://localhost:3000/auth/callback&response_type=code`,
       "_blank",
       "width=500, height=700",
     );
+
     localStorage.removeItem("type");
     localStorage.setItem("type", type);
+
+    login?.addEventListener("beforeunload", () => {
+      const response = localStorage.getItem("data");
+      if (response) {
+        dispatch(oauthLoginSuccess(JSON.parse(response)));
+      }
+    });
   };
 
   return (
@@ -65,4 +76,4 @@ const LoginSocialButtons = () => {
   );
 };
 
-export default LoginSocialButtons;
+export default LoginSocial;

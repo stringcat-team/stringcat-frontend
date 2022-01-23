@@ -1,5 +1,7 @@
 import { Box, styled } from "@mui/material";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/reducers";
 import EmailVerifier from "./EmailVerifier";
 import LoginMain from "./LoginMain";
 import Logo from "./Logo";
@@ -27,9 +29,14 @@ const StyledBox = styled(Box, { shouldForwardProp: (prop) => prop !== "email" })
 
 const Login = () => {
   const [email, setEmail] = useState<boolean>(false);
+  const { accessToken, type } = useSelector((state: RootState) => state.auth);
   const onSignUp = useCallback(() => {
     setEmail(true);
   }, []);
+
+  useEffect(() => {
+    console.log(accessToken, type);
+  }, [accessToken, type]);
 
   return (
     <StyledBox email={email}>

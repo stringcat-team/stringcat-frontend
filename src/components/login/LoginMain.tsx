@@ -1,7 +1,7 @@
 import { Box, Typography, Button, styled, useTheme } from "@mui/material";
 import React from "react";
 import LoginForm from "./LoginForm";
-import LoginSocialButtons from "./LoginSocialButtons";
+import LoginSocial from "./LoginSocial";
 
 interface LoginMainProps {
   onSignUp: () => void;
@@ -30,7 +30,7 @@ const LoginMain = ({ onSignUp }: LoginMainProps) => {
       </Typography>
       <Box display="flex" justifyContent="space-around" mb={1}>
         <LoginForm />
-        <LoginSocialButtons />
+        <LoginSocial />
       </Box>
       <Box display="flex" justifyContent="space-around">
         <Box flex={1} pr={1} display="flex" justifyContent="space-between" alignItems="center">

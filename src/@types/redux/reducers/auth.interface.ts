@@ -1,3 +1,5 @@
+import { OauthLoginReponse } from "../../../../pages/api/AuthService";
+
 export enum AuthActionTypes {
   OAUTH_LOGIN_REQUEST = "OAUTH_LOGIN_REQUEST",
   OAUTH_LOGIN_SUCCESS = "OAUTH_LOGIN_SUCCESS",
@@ -6,8 +8,7 @@ export enum AuthActionTypes {
 export type AuthActions = OauthLoginRequest | OauthLoginSuccess;
 
 export type AuthState = {
-  accessToken: string;
-  refreshToken: string;
+  accessToken: string | null;
   type: string | null;
 };
 
@@ -17,14 +18,14 @@ export interface OauthLoginRequest {
 }
 export interface OauthLoginSuccess {
   type: AuthActionTypes.OAUTH_LOGIN_SUCCESS;
-  payload: { accessToken: string; refreshToken: string };
+  payload: { response: OauthLoginReponse; type: string };
 }
 
 export interface Oauth {
   [key: string]: AuthKey;
   kakao: AuthKey;
-  github: AuthKey;
   google: AuthKey;
+  github: AuthKey;
 }
 
 export interface AuthKey {

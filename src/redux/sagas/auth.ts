@@ -21,12 +21,18 @@ function* oauthLoginRequest({ payload }: OauthLoginRequest) {
         response = yield call(() => AuthService.getGithubToken(code));
         break;
       }
+      case "google": {
+        response = yield call(() => AuthService.getGoogleToken(code));
+        break;
+      }
       default:
         throw new Error("unknown login");
     }
 
-    console.log(response);
-    yield put(oauthLoginSuccess(response));
+    const data = { ...response, type };
+    localStorage.setItem("data", JSON.stringify(data));
+
+    window.close();
   } catch (error) {
     yield console.log(error);
   }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 interface LogoProps {
-  email: boolean;
+  email?: boolean;
 }
 
 const Logo = ({ email }: LogoProps) => {
@@ -23,6 +23,10 @@ const Logo = ({ email }: LogoProps) => {
       <Image src="/images/logo.png" height={40} width={240} />
     </Box>
   );
+};
+
+Logo.defaultProps = {
+  email: false,
 };
 
 export default Logo;

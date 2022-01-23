@@ -7,21 +7,18 @@ import {
 
 const { OAUTH_LOGIN_REQUEST, OAUTH_LOGIN_SUCCESS } = AuthActionTypes;
 
-export const oauthLoginRequest = (code: string | string[], type: string | null) => ({
+export const oauthLoginRequest = (code: string | string[]) => ({
   type: OAUTH_LOGIN_REQUEST,
-  payload: { code, type },
+  payload: { code },
 });
 
-export const oauthLoginSuccess = (response: OauthLoginReponse | null) => ({
+export const oauthLoginSuccess = (response: OauthLoginReponse) => ({
   type: OAUTH_LOGIN_SUCCESS,
-  payload: {
-    response,
-  },
+  payload: { response },
 });
 
 const initialState: AuthState = {
-  accessToken: "",
-  refreshToken: "",
+  accessToken: null,
   type: null,
 };
 
@@ -31,8 +28,14 @@ const AuthReducer = (state = initialState, action: AuthActions): AuthState => {
       return {
         ...state,
       };
-
-    case OAUTH_LOGIN_SUCCESS:
+    case OAUTH_LOGIN_SUCCESS: {
+      const { accessToken, type } = action.payload.response;
+      return {
+        ...state,
+        accessToken,
+        type,
+      };
+    }
     default:
       return state;
   }

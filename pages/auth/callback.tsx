@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Logo from "../../src/components/login/Logo";
+import Logo from "../../src/components/Logo";
 import { oauthLoginRequest } from "../../src/redux/reducers/auth";
 
 const CallbackPage: NextPage = () => {

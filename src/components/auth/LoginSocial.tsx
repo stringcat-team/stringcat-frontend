@@ -1,5 +1,6 @@
 import { Box, Typography, styled, Button } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { GITHUB_AUTH_KEY, GOOGLE_AUTH_KEY, KAKAO_AUTH_KEY } from "../../../pages/api/AuthService";
@@ -40,6 +41,7 @@ const OauthLogin: Oauth = {
 
 const LoginSocial = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const onClickLogin = (type: string) => () => {
     const { url, authKey } = OauthLogin[type];
     window.open(
@@ -57,11 +59,15 @@ const LoginSocial = () => {
       (e) => {
         if (e.origin === "http://localhost:3000" && e.data.login) {
           dispatch(oauthLoginSuccess(e.data));
+          const { newMember } = e.data.login;
+          if (!newMember) {
+            router.push("/auth/signup");
+          }
         }
       },
       false,
     );
-  }, [dispatch]);
+  }, [router, dispatch]);
 
   return (
     <Box sx={{ flex: 1, paddingLeft: (theme) => theme.spacing(2) }}>

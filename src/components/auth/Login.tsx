@@ -1,11 +1,20 @@
-import { Box, Typography, Button, styled, useTheme } from "@mui/material";
+import { Box, Button, styled, Typography, useTheme } from "@mui/material";
+import { useRouter } from "next/router";
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/reducers";
+import Logo from "../Logo";
 import LoginForm from "./LoginForm";
 import LoginSocial from "./LoginSocial";
 
-interface LoginMainProps {
-  onSignUp: () => void;
-}
+const StyledBox = styled(Box)(({ theme }) => ({
+  boxShadow: theme.shadows[3],
+  borderRadius: theme.shape.borderRadius,
+  width: 700,
+  height: 400,
+  padding: theme.spacing(3),
+  position: "relative",
+}));
 
 const StyledButton = styled(Button)(({ theme }) => ({
   color: theme.palette.text.primary,
@@ -15,13 +24,16 @@ const StyledButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const LoginMain = ({ onSignUp }: LoginMainProps) => {
+const Login = () => {
+  const router = useRouter();
   const theme = useTheme();
   const onClickEmail = () => {
-    onSignUp();
+    router.push("/auth/email");
   };
+
   return (
-    <>
+    <StyledBox>
+      <Logo />
       <Typography
         variant="body1"
         sx={{ textAlign: "center", paddingBottom: theme.spacing(3), paddingTop: theme.spacing(2) }}
@@ -45,8 +57,8 @@ const LoginMain = ({ onSignUp }: LoginMainProps) => {
           </StyledButton>
         </Box>
       </Box>
-    </>
+    </StyledBox>
   );
 };
 
-export default LoginMain;
+export default Login;

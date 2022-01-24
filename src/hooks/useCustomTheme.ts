@@ -31,7 +31,7 @@ export default function useCustomTheme() {
         fontSize: "12px",
       },
     },
-    spacing: 10,
+    spacing: grid,
     shape: {
       borderRadius: 5,
     },

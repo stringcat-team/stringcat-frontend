@@ -17,7 +17,7 @@ import React, { useRef } from "react";
 const Hello = () => {
   const router = useRouter();
   const onClickButton = () => {
-    router.push("/login");
+    router.push("/auth/login");
   };
   return (
     <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>

@@ -1,12 +1,6 @@
-import { Typography, styled, useTheme, Divider, TextField, InputBase } from "@mui/material";
+import { Typography, styled, useTheme, Divider } from "@mui/material";
 import React from "react";
-
-const StyledInput = styled(InputBase)(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
-  height: 44,
-  padding: theme.spacing(1),
-  borderRadius: theme.shape.borderRadius,
-}));
+import Input from "../Input";
 
 const StyledBox = styled("div")(({ theme }) => ({
   flex: 1,
@@ -23,8 +17,8 @@ const LoginForm = () => {
       <Typography gutterBottom>로그인 하기</Typography>
       <Divider sx={{ mb: 1 }} />
       <form>
-        <StyledInput placeholder="ID" fullWidth sx={{ mb: 1 }} />
-        <StyledInput placeholder="PASSWORD" fullWidth />
+        <Input placeholder="ID" fullWidth sx={{ mb: 1 }} />
+        <Input placeholder="PASSWORD" fullWidth />
       </form>
     </StyledBox>
   );

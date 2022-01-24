@@ -16,6 +16,8 @@ const CallbackPage: NextPage = () => {
     }
   }, [query, dispatch]);
 
+  useEffect(() => {}, []);
+
   return (
     <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>
       <Box display="flex" flexDirection="column" alignItems="center">

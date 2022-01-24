@@ -1,6 +1,6 @@
 import { Box, Typography, styled, Button } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { GITHUB_AUTH_KEY, GOOGLE_AUTH_KEY, KAKAO_AUTH_KEY } from "../../../pages/api/AuthService";
 import { Oauth } from "../../@types/redux/reducers/auth.interface";
@@ -42,22 +42,26 @@ const LoginSocial = () => {
   const dispatch = useDispatch();
   const onClickLogin = (type: string) => () => {
     const { url, authKey } = OauthLogin[type];
-    const login = window.open(
+    window.open(
       `${url}${authKey}&redirect_uri=http://localhost:3000/auth/callback&response_type=code`,
       "_blank",
       "width=500, height=700",
     );
-
     localStorage.removeItem("type");
     localStorage.setItem("type", type);
-
-    login?.addEventListener("beforeunload", () => {
-      const response = localStorage.getItem("data");
-      if (response) {
-        dispatch(oauthLoginSuccess(JSON.parse(response)));
-      }
-    });
   };
+
+  useEffect(() => {
+    window.addEventListener(
+      "message",
+      (e) => {
+        if (e.origin === "http://localhost:3000" && e.data.login) {
+          dispatch(oauthLoginSuccess(e.data));
+        }
+      },
+      false,
+    );
+  }, [dispatch]);
 
   return (
     <Box sx={{ flex: 1, paddingLeft: (theme) => theme.spacing(2) }}>

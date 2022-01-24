@@ -12,17 +12,19 @@ export const GITHUB_AUTH_KEY = `${process.env.NEXT_PUBLIC_GITHUB_AUTH_KEY}`;
 export const GOOGLE_AUTH_KEY = `${process.env.NEXT_PUBLIC_GOOGLE_AUTH_KEY}`;
 
 class AuthService {
-  static SERVER_ADDRESS = "/server/";
-
-  static REFRESH_TOKEN = "/auth/refresh";
-
   static GITHUB = "/github/access_token";
 
-  static SERVER_GITHUB = "/auth/github";
+  static REFRESH_TOKEN = "auth/refresh";
 
-  static SERVER_KAKAO = "/auth/kakao";
+  static SERVER_ADDRESS = "/server";
 
-  static SERVER_GOOGLE = "/auth/google";
+  static SERVER_GITHUB = "auth/github";
+
+  static SERVER_KAKAO = "auth/kakao";
+
+  static SERVER_GOOGLE = "auth/google";
+
+  static SEND_MAIL = "mail/send/auth";
 
   static checkRefreshToken(accessToken: string | string[], url: string) {
     return new Promise<OauthLoginReponse>((resolve, reject) => {
@@ -115,6 +117,28 @@ class AuthService {
             data.access_token,
             AuthService.SERVER_GOOGLE,
           );
+          resolve(response);
+        } catch (e) {
+          reject(e);
+        }
+      })();
+    });
+  }
+
+  static emailVerify(email: string) {
+    return new Promise<AxiosResponse>((resolve, reject) => {
+      (async () => {
+        try {
+          const response: AxiosResponse = await axios({
+            url: `${AuthService.SERVER_ADDRESS}/${AuthService.SEND_MAIL}`,
+            method: "POST",
+            data: {
+              content: "테스트 이메일이 발송되었습니다 :)",
+              email,
+              title: "[stringcat] 회원가입을 위한 이메일 인증",
+              type: "VERIFIER",
+            },
+          });
           resolve(response);
         } catch (e) {
           reject(e);

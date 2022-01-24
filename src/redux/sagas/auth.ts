@@ -29,9 +29,8 @@ function* oauthLoginRequest({ payload }: OauthLoginRequest) {
         throw new Error("unknown login");
     }
 
-    const data = { ...response, type };
-    localStorage.setItem("data", JSON.stringify(data));
-
+    window.opener.postMessage({ login: true, ...response, type });
+    localStorage.removeItem("type");
     window.close();
   } catch (error) {
     yield console.log(error);

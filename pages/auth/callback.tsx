@@ -5,16 +5,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../src/components/Logo";
 import { oauthLoginRequest } from "../../src/redux/reducers/auth";
+import { OauthCallbackCode } from "../api/AuthService";
 
 const CallbackPage: NextPage = () => {
-  const { query } = useRouter();
+  const {
+    query: { code },
+  } = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (query.code) {
-      dispatch(oauthLoginRequest(query.code));
+    if (code) {
+      dispatch(oauthLoginRequest(code as OauthCallbackCode));
     }
-  }, [query, dispatch]);
+  }, [code, dispatch]);
 
   useEffect(() => {}, []);
 

@@ -1,4 +1,4 @@
-import { OauthLoginReponse } from "../../../../pages/api/AuthService";
+import { OauthCallbackCode, OauthLoginReponse } from "../../../../pages/api/AuthService";
 
 export enum AuthActionTypes {
   OAUTH_LOGIN_REQUEST = "OAUTH_LOGIN_REQUEST",
@@ -14,7 +14,7 @@ export type AuthState = {
 
 export interface OauthLoginRequest {
   type: AuthActionTypes.OAUTH_LOGIN_REQUEST;
-  payload: { code: string | string[] };
+  payload: { code: OauthCallbackCode };
 }
 export interface OauthLoginSuccess {
   type: AuthActionTypes.OAUTH_LOGIN_SUCCESS;

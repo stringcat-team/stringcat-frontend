@@ -6,11 +6,11 @@ const StyledInput = styled(InputBase)(({ theme, disabled }) => ({
   height: 44,
   padding: theme.spacing(1),
   borderRadius: theme.shape.borderRadius,
-  ...(disabled && {
-    background: theme.palette.action.disabledBackground,
-    color: theme.palette.text.primary,
-    fontWeight: "bold",
-  }),
+  // ...(disabled && {
+  //   background: theme.palette.action.disabledBackground,
+  //   color: theme.palette.text.primary,
+  //   fontWeight: "bold",
+  // }),
 }));
 
 const Input = (props: InputBaseProps) => {

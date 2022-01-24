@@ -25,7 +25,7 @@ export default function useCustomTheme() {
         fontSize: "20px",
       },
       body1: {
-        fontSize: "14px",
+        fontSize: "15px",
       },
       body2: {
         fontSize: "12px",

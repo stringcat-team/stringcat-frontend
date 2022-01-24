@@ -43,14 +43,14 @@ const LoginSocial = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const onClickLogin = (type: string) => () => {
+    localStorage.removeItem("type");
+    localStorage.setItem("type", type);
     const { url, authKey } = OauthLogin[type];
     window.open(
       `${url}${authKey}&redirect_uri=http://localhost:3000/auth/callback&response_type=code`,
       "_blank",
       "width=500, height=700",
     );
-    localStorage.removeItem("type");
-    localStorage.setItem("type", type);
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const LoginSocial = () => {
         return (
           <StyledButton onClick={onClickLogin(key)} key={key} fullWidth>
             <Image src={`/images/${key}_icon.png`} width={20} height={20} />
-            <Typography variant="body2" sx={{ paddingLeft: (theme) => theme.spacing(1) }}>
+            <Typography variant="body1" sx={{ paddingLeft: (theme) => theme.spacing(1) }}>
               {text}
             </Typography>
           </StyledButton>

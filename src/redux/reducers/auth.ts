@@ -1,4 +1,4 @@
-import { OauthLoginReponse } from "../../../pages/api/AuthService";
+import { OauthLoginReponse, OauthCallbackCode } from "../../../pages/api/AuthService";
 import {
   AuthActionTypes,
   AuthState,
@@ -7,7 +7,7 @@ import {
 
 const { OAUTH_LOGIN_REQUEST, OAUTH_LOGIN_SUCCESS } = AuthActionTypes;
 
-export const oauthLoginRequest = (code: string | string[]) => ({
+export const oauthLoginRequest = (code: OauthCallbackCode) => ({
   type: OAUTH_LOGIN_REQUEST,
   payload: { code },
 });

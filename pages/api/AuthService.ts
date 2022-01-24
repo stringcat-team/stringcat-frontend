@@ -7,7 +7,9 @@ export interface OauthLoginReponse {
   type: string | null;
 }
 
-export const KAKAO_AUTH_KEY = `${process.env.NEXT_PUBLIC_TEST_KAKAO_AUTH_KEY}`;
+export type OauthCallbackCode = string | undefined;
+
+export const KAKAO_AUTH_KEY = `${process.env.NEXT_PUBLIC_KAKAO_AUTH_KEY}`;
 export const GITHUB_AUTH_KEY = `${process.env.NEXT_PUBLIC_GITHUB_AUTH_KEY}`;
 export const GOOGLE_AUTH_KEY = `${process.env.NEXT_PUBLIC_GOOGLE_AUTH_KEY}`;
 
@@ -31,7 +33,7 @@ class AuthService {
       (async () => {
         try {
           const result: AxiosResponse = await axios({
-            url: `${AuthService.SERVER_ADDRESS}/${url}`,
+            url: `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/${url}`,
             method: "POST",
             data: { accessToken },
           });
@@ -43,7 +45,7 @@ class AuthService {
     });
   }
 
-  static getGithubToken(code: string | string[]) {
+  static getGithubToken(code: OauthCallbackCode) {
     return new Promise<OauthLoginReponse>((resolve, reject) => {
       (async () => {
         try {
@@ -60,7 +62,7 @@ class AuthService {
 
           const response: OauthLoginReponse = await AuthService.checkRefreshToken(
             githubToken,
-            AuthService.SERVER_KAKAO,
+            AuthService.SERVER_GITHUB,
           );
           resolve(response);
         } catch (e) {
@@ -70,7 +72,7 @@ class AuthService {
     });
   }
 
-  static getKakaoToken(code: string | string[]) {
+  static getKakaoToken(code: OauthCallbackCode) {
     return new Promise<OauthLoginReponse>((resolve, reject) => {
       (async () => {
         try {
@@ -87,7 +89,7 @@ class AuthService {
 
           const response: OauthLoginReponse = await AuthService.checkRefreshToken(
             data.access_token,
-            AuthService.SERVER_GITHUB,
+            AuthService.SERVER_KAKAO,
           );
           resolve(response);
         } catch (e) {
@@ -97,7 +99,7 @@ class AuthService {
     });
   }
 
-  static getGoogleToken(code: string | string[]) {
+  static getGoogleToken(code: OauthCallbackCode) {
     return new Promise<OauthLoginReponse>((resolve, reject) => {
       (async () => {
         try {

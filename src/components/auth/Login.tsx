@@ -1,8 +1,6 @@
 import { Box, Button, styled, Typography, useTheme } from "@mui/material";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/reducers";
 import Logo from "../Logo";
 import LoginForm from "./LoginForm";
 import LoginSocial from "./LoginSocial";
@@ -25,11 +23,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const Login = () => {
-  const router = useRouter();
   const theme = useTheme();
-  const onClickEmail = () => {
-    router.push("/auth/email");
-  };
 
   return (
     <StyledBox>
@@ -52,9 +46,11 @@ const Login = () => {
           </Button>
         </Box>
         <Box flex={1} pl={2} display="flex" justifyContent="center" alignItems="center">
-          <StyledButton onClick={onClickEmail} variant="text" fullWidth>
-            E-mail로 가입하기
-          </StyledButton>
+          <Link passHref href="/auth/email">
+            <StyledButton variant="text" fullWidth>
+              E-mail로 가입하기
+            </StyledButton>
+          </Link>
         </Box>
       </Box>
     </StyledBox>

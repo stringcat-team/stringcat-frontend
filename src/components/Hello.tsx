@@ -11,22 +11,18 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import React, { useRef } from "react";
 
 const Hello = () => {
-  const router = useRouter();
-  const onClickButton = () => {
-    router.push("/auth/login");
-  };
   return (
     <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>
       <AppBar>
         <Toolbar>
           <Container>
-            <Button onClick={onClickButton} color="secondary">
-              로그인 하러가기
-            </Button>
+            <Link passHref href="/auth/login">
+              <Button color="secondary">로그인 하러가기</Button>
+            </Link>
           </Container>
         </Toolbar>
       </AppBar>

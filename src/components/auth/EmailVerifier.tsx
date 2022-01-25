@@ -1,8 +1,10 @@
 import { Box, Button, styled, TextField } from "@mui/material";
-import React, { FormEventHandler, useRef } from "react";
+import { useRouter } from "next/router";
+import React, { FormEventHandler, useEffect, useRef } from "react";
 import AuthService from "../../../pages/api/AuthService";
 
 const EmailVerifier = () => {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     try {
@@ -16,6 +18,11 @@ const EmailVerifier = () => {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    router.prefetch("/auth/signup");
+  }, [router]);
+
   return (
     <form onSubmit={onSubmit}>
       <Box

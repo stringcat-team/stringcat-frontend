@@ -69,6 +69,10 @@ const LoginSocial = () => {
     );
   }, [router, dispatch]);
 
+  useEffect(() => {
+    router.prefetch("/auth/signup");
+  }, [router]);
+
   return (
     <Box sx={{ flex: 1, paddingLeft: (theme) => theme.spacing(2) }}>
       {Object.keys(OauthLogin).map((key) => {

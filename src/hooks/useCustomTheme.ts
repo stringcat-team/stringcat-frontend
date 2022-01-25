@@ -18,6 +18,7 @@ export default function useCustomTheme() {
         primary: "#3f3f3f",
         secondary: "#808183",
       },
+      divider: "#C1C1C1",
     },
     typography: {
       fontFamily,
@@ -48,6 +49,13 @@ export default function useCustomTheme() {
             "&:hover": {
               background: "#F1F1F1",
             },
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          notchedOutline: {
+            borderColor: "#C1C1C1",
           },
         },
       },

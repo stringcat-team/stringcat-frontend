@@ -9,16 +9,27 @@ export interface OauthLoginReponse {
 
 export type OauthCallbackCode = string | undefined;
 
+export interface SignUpForm {
+  email: string;
+  githubUrl?: string;
+  intro?: string;
+  nickname: string;
+  password: string;
+  password2: string;
+  skills?: string;
+}
+
 export const KAKAO_AUTH_KEY = `${process.env.NEXT_PUBLIC_KAKAO_AUTH_KEY}`;
 export const GITHUB_AUTH_KEY = `${process.env.NEXT_PUBLIC_GITHUB_AUTH_KEY}`;
 export const GOOGLE_AUTH_KEY = `${process.env.NEXT_PUBLIC_GOOGLE_AUTH_KEY}`;
+export const REDIRECT_URI = `http://localhost:3000/auth/callback`;
 
 class AuthService {
   static GITHUB = "/github/access_token";
 
   static REFRESH_TOKEN = "auth/refresh";
 
-  static SERVER_ADDRESS = "/server";
+  static SERVER_ADDRESS = process.env.NEXT_PUBLIC_SERVER_ADDRESS;
 
   static SERVER_GITHUB = "auth/github";
 
@@ -28,12 +39,14 @@ class AuthService {
 
   static SEND_MAIL = "mail/send/auth";
 
+  static SIGN_UP = "auth/sign-up";
+
   static checkRefreshToken(accessToken: string | string[], url: string) {
     return new Promise<OauthLoginReponse>((resolve, reject) => {
       (async () => {
         try {
           const result: AxiosResponse = await axios({
-            url: `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/${url}`,
+            url: `${AuthService.SERVER_ADDRESS}/${url}`,
             method: "POST",
             data: { accessToken },
           });
@@ -59,7 +72,6 @@ class AuthService {
             },
           });
           const githubToken = data.split("&")[0].replace("access_token=", "");
-
           const response: OauthLoginReponse = await AuthService.checkRefreshToken(
             githubToken,
             AuthService.SERVER_GITHUB,
@@ -82,7 +94,7 @@ class AuthService {
             params: {
               client_id: KAKAO_AUTH_KEY,
               grant_type: "authorization_code",
-              redirect_uri: "http://localhost:3000/auth/callback",
+              redirect_uri: REDIRECT_URI,
               code,
             },
           });
@@ -108,7 +120,7 @@ class AuthService {
             method: "POST",
             params: {
               client_id: GOOGLE_AUTH_KEY,
-              redirect_uri: "http://localhost:3000/auth/callback",
+              redirect_uri: REDIRECT_URI,
               client_secret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_KEY,
               grant_type: "authorization_code",
               code,
@@ -140,6 +152,23 @@ class AuthService {
               title: "[stringcat] 회원가입을 위한 이메일 인증",
               type: "VERIFIER",
             },
+          });
+          resolve(response);
+        } catch (e) {
+          reject(e);
+        }
+      })();
+    });
+  }
+
+  static signUp(form: SignUpForm) {
+    return new Promise<AxiosResponse>((resolve, reject) => {
+      (async () => {
+        try {
+          const response: AxiosResponse = await axios({
+            url: `${AuthService.SERVER_ADDRESS}/${AuthService.SIGN_UP}`,
+            method: "POST",
+            data: { ...form },
           });
           resolve(response);
         } catch (e) {

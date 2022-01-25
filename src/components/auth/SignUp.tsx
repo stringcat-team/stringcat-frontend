@@ -1,8 +1,9 @@
-import { Box, Button, FormControl, FormHelperText, styled, TextField } from "@mui/material";
-import React, { FormEventHandler, useRef } from "react";
+/* eslint-disable no-param-reassign */
+import { Box, Button, styled } from "@mui/material";
+import React, { ChangeEvent, FormEventHandler, useState } from "react";
+import AuthService from "../../../pages/api/AuthService";
 import Input from "../Input";
 import Logo from "../Logo";
-import SignUpPw from "./SignUpPw";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   boxShadow: theme.shadows[3],
@@ -13,58 +14,116 @@ const StyledBox = styled(Box)(({ theme }) => ({
   position: "relative",
 }));
 
-const StyledForm = styled("form")(({ theme }) => ({
-  paddingTop: theme.spacing(7),
-}));
-
-const StyledHelper = styled(FormHelperText)(({ theme }) => ({
-  marginLeft: 2,
+const ButtonBox = styled(Box)(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  position: "absolute",
+  left: 0,
+  bottom: theme.spacing(2),
+  padding: `0 ${theme.spacing(3)}`,
 }));
 
 const SignUp = () => {
+  const [form, setForm] = useState({
+    email: "",
+    nickname: "",
+    password: "",
+    password2: "",
+    skills: "",
+    intro: "",
+    githubUrl: "",
+  });
+
+  const { email, nickname, password, password2, skills, intro, githubUrl } = form;
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      const response = AuthService.signUp(form);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onChange = ({ target: { value, name } }: ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <StyledBox>
       <Logo />
-      <StyledForm onSubmit={onSubmit}>
-        <TextField
-          placeholder="아이디"
-          value="knsan189@naver.com"
+      <form onSubmit={onSubmit} style={{ paddingTop: 70 }}>
+        <Input
+          fullWidth
+          onChange={onChange}
+          name="email"
+          value={email}
           type="email"
           helperText="인증이 완료된 이메일입니다."
-          fullWidth
-          inputProps={{ sx: { p: 1 } }}
+          placeholder="이메일"
+          sx={{ mb: 1 }}
+          required
         />
-        <FormControl fullWidth sx={{ mb: 1 }} required>
-          <Input placeholder="닉네임" fullWidth />
-          <StyledHelper>중복되지 않는 닉네임입니다.</StyledHelper>
-        </FormControl>
-        <SignUpPw />
-        <FormControl fullWidth sx={{ mb: 1 }}>
-          <Input placeholder="자신을 한줄로 소개 해주세요." fullWidth />
-        </FormControl>
-        <Input placeholder="Github URL를 입력해주세요." fullWidth />
-
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            position: "absolute",
-            left: 0,
-            bottom: (theme) => theme.spacing(2),
-            px: 3,
-          }}
-        >
+        <Input
+          fullWidth
+          onChange={onChange}
+          name="nickname"
+          value={nickname}
+          helperText="사용가능한 닉네임 입니다."
+          placeholder="닉네임"
+          sx={{ mb: 1 }}
+          required
+        />
+        <Input
+          fullWidth
+          onChange={onChange}
+          name="password"
+          value={password}
+          type="password"
+          placeholder="비밀번호 1차"
+          error={password !== password2}
+          sx={{ mb: "5px" }}
+          required
+        />
+        <Input
+          fullWidth
+          onChange={onChange}
+          name="password2"
+          value={password2}
+          type="password"
+          helperText={
+            password !== password2 ? "비밀번호가 불일치합니다." : "비밀번호가 일치합니다."
+          }
+          placeholder="비밀번호 2차"
+          error={password !== password2}
+          sx={{ mb: 1 }}
+          required
+        />
+        <Input
+          fullWidth
+          onChange={onChange}
+          name="intro"
+          value={intro}
+          placeholder="자신을 한줄로 소개 해주세요."
+          sx={{ mb: 1 }}
+        />
+        <Input
+          fullWidth
+          onChange={onChange}
+          name="githubUrl"
+          value={githubUrl}
+          placeholder="Github URL를 입력해주세요."
+          type="url"
+          sx={{ mb: 1 }}
+        />
+        <ButtonBox>
           <Button>그만두기</Button>
           <Button variant="contained" type="submit">
             회원가입
           </Button>
-        </Box>
-      </StyledForm>
+        </ButtonBox>
+      </form>
     </StyledBox>
   );
 };

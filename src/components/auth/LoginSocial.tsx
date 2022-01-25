@@ -47,7 +47,7 @@ const LoginSocial = () => {
     localStorage.setItem("type", type);
     const { url, authKey } = OauthLogin[type];
     window.open(
-      `${url}${authKey}&redirect_uri=http://localhost:3000/auth/callback&response_type=code`,
+      `${url}${authKey}&redirect_uri=${window.location.origin}/auth/callback&response_type=code`,
       "_blank",
       "width=500, height=700",
     );

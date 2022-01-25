@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start -p 80",
     "lint": "next lint",
-    "open": "(npm run build && next start &)",
+    "open": "(npm run build && next start -p 80 &)",
     "close": "pgrep -f next|xargs kill"
   },
   "dependencies": {

@@ -5,7 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "open": "(npm run build && next start &)",
+    "close": "pgrep -f next|xargs kill"
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",

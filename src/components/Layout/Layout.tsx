@@ -19,7 +19,12 @@ function Layout({ children, pageTitle }: LayoutProps) {
       <Header />
       <Box
         component="main"
-        sx={{ background: (theme) => theme.palette.secondary.main, height: "100vh", pt: 8, pb: 3 }}
+        sx={{
+          background: (theme) => theme.palette.secondary.main,
+          minHeight: "100vh",
+          pt: 8,
+          pb: 3,
+        }}
       >
         {children}
       </Box>

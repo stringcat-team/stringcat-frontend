@@ -25,16 +25,6 @@ const Hello = () => {
 
   return (
     <Box>
-      <AppBar>
-        <Toolbar>
-          <Container>
-            <Link passHref href="/auth/login">
-              <Button color="secondary">로그인 하러가기</Button>
-            </Link>
-          </Container>
-        </Toolbar>
-      </AppBar>
-
       <Container sx={{ mt: 8 }}>
         <Card sx={{ width: 400, mb: 3 }}>
           <CardContent>

@@ -1,4 +1,4 @@
-import { Card, CardHeader, Divider, Paper, Typography } from "@mui/material";
+import { Divider, Paper, Typography } from "@mui/material";
 import React from "react";
 
 const MyStacks = () => {

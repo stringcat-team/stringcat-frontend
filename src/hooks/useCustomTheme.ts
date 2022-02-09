@@ -31,6 +31,7 @@ export default function useCustomTheme() {
       },
       body1: {
         fontSize: "15px",
+        fontWeight: 500,
       },
       body2: {
         fontSize: "12px",

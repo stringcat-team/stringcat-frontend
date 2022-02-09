@@ -16,10 +16,13 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap"
             rel="stylesheet"
           />
+
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
+
+          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}
         </Head>

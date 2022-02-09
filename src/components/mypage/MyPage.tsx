@@ -1,5 +1,7 @@
 import { Avatar, Box, Button, Container, Paper, Typography } from "@mui/material";
 import React from "react";
+import MyAuthority from "./MyAuthority";
+import MyStacks from "./MyStacks";
 
 const MyPage = () => {
   return (
@@ -20,8 +22,8 @@ const MyPage = () => {
       </Paper>
       <Box display="flex">
         <Box sx={{ width: 234, mr: 1 }}>
-          <Paper elevation={0}>기술</Paper>
-          <Paper elevation={0}>a</Paper>
+          <MyStacks />
+          <MyAuthority />
           <Button variant="contained" fullWidth>
             Follow
           </Button>

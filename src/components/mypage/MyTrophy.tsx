@@ -18,6 +18,7 @@ const MyTrophy = ({ type = "emoji_events", text, achieved }: MyTrophyProps) => {
           height: 150,
           mb: 4,
           background: achieved ? theme.palette.primary.light : null,
+          color: achieved ? theme.palette.primary.contrastText : null,
         }}
       >
         <Icon type={type} />

@@ -1,5 +1,6 @@
 import { Avatar, Box, Button, Container, Paper, Typography } from "@mui/material";
 import React from "react";
+import Icon from "../Icon";
 import MyAuthority from "./MyAuthority";
 import MyStacks from "./MyStacks";
 import MyTrophy from "./MyTrophy";
@@ -40,8 +41,22 @@ const MyPage = () => {
             <MyTrophy />
           </Paper>
           <Paper elevation={0} sx={{ p: 2 }}>
-            <Typography variant="h4">Questions</Typography>
-            <Paper>a</Paper>
+            <Box display="flex" alignItems="center" mb={3}>
+              <Typography variant="h4" mr={1}>
+                Questions
+              </Typography>
+              <Button
+                sx={{
+                  boxShadow: (theme) => theme.shadows[3],
+                  minWidth: "auto",
+                  width: 24,
+                  height: 24,
+                }}
+              >
+                <Icon type="expand_more" />
+              </Button>
+            </Box>
+            <Paper sx={{ p: 2 }}>a</Paper>
           </Paper>
         </Box>
       </Box>

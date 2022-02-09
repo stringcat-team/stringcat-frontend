@@ -8,6 +8,8 @@ export default function useCustomTheme() {
     palette: {
       primary: {
         main: "#F5BF41",
+        light: "#FFEDC2",
+        dark: "#E4A000",
         contrastText: "#3F3F3F",
       },
       secondary: {

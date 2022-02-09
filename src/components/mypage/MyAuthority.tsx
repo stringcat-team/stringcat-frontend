@@ -31,7 +31,7 @@ const MyAuthority = ({ authority }: AuthorityProps) => {
         Object.keys(data).map((key, index, array) => {
           const lastChild = index === array.length - 1;
           return (
-            <ListItem divider={!lastChild} sx={{ p: 0, py: 1 }}>
+            <ListItem key={key} divider={!lastChild} sx={{ p: 0, py: 1 }}>
               <ListItemText primary={data[key]} sx={{ m: 0 }} />
               {authority[key]}
             </ListItem>

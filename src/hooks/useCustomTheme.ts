@@ -22,6 +22,10 @@ export default function useCustomTheme() {
     },
     typography: {
       fontFamily,
+      h4: {
+        fontSize: "30px",
+        fontWeight: 500,
+      },
       subtitle1: {
         fontSize: "20px",
       },

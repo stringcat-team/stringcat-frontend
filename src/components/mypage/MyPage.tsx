@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Container, Paper, Typography } from "@mui/material
 import React from "react";
 import MyAuthority from "./MyAuthority";
 import MyStacks from "./MyStacks";
+import MyTrophy from "./MyTrophy";
 
 const MyPage = () => {
   return (
@@ -24,7 +25,7 @@ const MyPage = () => {
         <Box sx={{ width: 234, mr: 1 }}>
           <MyStacks />
           <MyAuthority />
-          <Button variant="contained" fullWidth>
+          <Button variant="contained" fullWidth sx={{ borderRadius: 1 }}>
             Follow
           </Button>
         </Box>
@@ -33,10 +34,10 @@ const MyPage = () => {
             elevation={0}
             sx={{ mb: 1, p: 5, display: "flex", justifyContent: "space-around" }}
           >
-            <Avatar sx={{ width: 150, height: 150 }}>a</Avatar>
-            <Avatar sx={{ width: 150, height: 150 }}>a</Avatar>
-            <Avatar sx={{ width: 150, height: 150 }}>a</Avatar>
-            <Avatar sx={{ width: 150, height: 150 }}>a</Avatar>
+            <MyTrophy type="approval" text="연속 출석 100일" achieved />
+            <MyTrophy type="smart_toy" text="답변 100회" achieved />
+            <MyTrophy type="help_center" text="질문 100회" achieved />
+            <MyTrophy />
           </Paper>
           <Paper elevation={0} sx={{ p: 2 }}>
             <Typography variant="h4">Questions</Typography>

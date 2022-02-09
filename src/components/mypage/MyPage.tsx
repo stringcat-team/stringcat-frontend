@@ -26,7 +26,7 @@ const MyPage = () => {
         <Box sx={{ width: 234, mr: 1 }}>
           <MyStacks />
           <MyAuthority />
-          <Button variant="contained" fullWidth sx={{ borderRadius: 1 }}>
+          <Button variant="contained" fullWidth sx={{ borderRadius: 1, height: 26 }}>
             Follow
           </Button>
         </Box>

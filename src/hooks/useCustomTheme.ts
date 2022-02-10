@@ -8,6 +8,8 @@ export default function useCustomTheme() {
     palette: {
       primary: {
         main: "#F5BF41",
+        light: "#FFEDC2",
+        dark: "#E4A000",
         contrastText: "#3F3F3F",
       },
       secondary: {
@@ -22,11 +24,16 @@ export default function useCustomTheme() {
     },
     typography: {
       fontFamily,
+      h4: {
+        fontSize: "30px",
+        fontWeight: 500,
+      },
       subtitle1: {
         fontSize: "20px",
       },
       body1: {
         fontSize: "15px",
+        fontWeight: 500,
       },
       body2: {
         fontSize: "12px",

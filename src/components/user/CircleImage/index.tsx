@@ -1,10 +1,7 @@
 import { MainBox } from "./style";
 
 const CircleImage = () => {
-  return (
-    <MainBox >
-    </MainBox>
-  );
+  return <MainBox />;
 };
 
 export default CircleImage;

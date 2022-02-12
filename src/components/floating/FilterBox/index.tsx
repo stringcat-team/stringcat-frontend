@@ -1,91 +1,92 @@
-import React, { useState } from "react";
+import React, { ChangeEventHandler, useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 import { Box } from "@mui/material";
-import { 
-  MainBox,FilterBar,BoldTypo,ArrowBox,SearchBox,
-  SearchBar,ResultBox,ResultTypo,PickBox,PickTag,RemoveBox
+import {
+  MainBox,
+  FilterBar,
+  BoldTypo,
+  ArrowBox,
+  SearchBox,
+  SearchBar,
+  ResultBox,
+  ResultTypo,
+  PickBox,
+  PickTag,
+  RemoveBox,
 } from "./style";
-import SearchIcon from '@mui/icons-material/Search';
 
-import { temp_1 } from "./data";
+import { temp } from "./data";
 
 const FilterBox = () => {
   // 검색창 노출
   const [filterState, setFilterState] = useState(true);
+  const [resultList, setResultList] = useState([...temp]);
+
   const searchBoxOpen = () => {
-    setResultList([...temp_1]);
-    setFilterState(()=>!filterState);
-  }
+    setResultList([...temp]);
+    setFilterState((prev) => !prev);
+  };
 
   // 검색 기능
-  const [resultList, setResultList] = useState([...temp_1]);
-  const searchHandler = (tx :string) => {
-    setResultList([...temp_1]);
-    const tempList = [];
-    for (const obj of temp_1) {
-      const tempObj = {...obj}
-      if(tempObj.name.indexOf(tx) > -1){
-        tempObj.name = tempObj.name.replace(tx, "<b style='color:black'>"+tx+"</b>");
-        tempList.push(tempObj);
+
+  const searchHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const tx = event.target.value;
+
+    const newResultList = temp.map((obj) => {
+      const tempObj = { ...obj };
+      if (tempObj.name.indexOf(tx) > -1) {
+        tempObj.name = tempObj.name.replace(tx, `<b style='color:black'>${tx}</b>`);
       }
-    }
-    setResultList([...tempList]);
-  }
+      return tempObj;
+    });
+
+    setResultList(newResultList);
+  };
 
   // 결과 선택 기능
   const [pinkList, setPinktList] = useState<string[]>([]);
-  const pinkHandler = (tx :string) => {
+  const pinkHandler = (tx: string) => () => {
     searchBoxOpen();
     const set = new Set([...pinkList, tx]);
     setPinktList([...Array.from(set)]);
-  }
+  };
 
   return (
-    <Box sx={{ mt: 5, ml: 15 }}>
-      <MainBox onClick={searchBoxOpen}> 
+    <Box sx={{ mt: 5, ml: 5 }}>
+      <MainBox onClick={searchBoxOpen}>
         <FilterBar>
           <BoldTypo variant="body1">필터링할 언어 추가하기</BoldTypo>
-          <ArrowBox sx={{
-            backgroundImage : "url(/images/floating/filter_" + (filterState ? "bottom" : "top") + ".png)"
-          }} />
+          <ArrowBox filterState={filterState} />
         </FilterBar>
       </MainBox>
-      { !filterState 
-      ?
+      {!filterState ? (
         <SearchBox>
-          <SearchBar onChange={(e)=>{
-            searchHandler(e.target.value);
-          }}>
-          </SearchBar>
-          <SearchIcon sx={{ color: "#F5BF41",fontSize:"29px",position:"absolute" }}/>
+          <SearchBar onChange={searchHandler} />
+          <SearchIcon sx={{ color: "#F5BF41", fontSize: "29px", position: "absolute" }} />
           <ResultBox>
-            {
-              resultList && resultList.map(function(obj, i){
-                  return(
-                    <ResultTypo
-                      onClick={() => {pinkHandler(obj.origName)} }
-                      key={obj.idx}
-                      dangerouslySetInnerHTML={ {__html: obj.name} }
-                    />
-                  )
-              })
-            }
+            {resultList?.map((obj) => {
+              return (
+                <ResultTypo onClick={pinkHandler(obj.origName)} key={obj.idx}>
+                  {obj.name}
+                </ResultTypo>
+              );
+            })}
           </ResultBox>
         </SearchBox>
-      : <PickBox>
-          {
-            pinkList && pinkList.map(function(tx, i){
-                return(
-                  <>
-                    <PickTag>{tx}</PickTag>
-                    <RemoveBox>✖︎</RemoveBox>
-                  </>
-                )
-            })
-          }
+      ) : (
+        <PickBox>
+          {pinkList?.map((tx) => {
+            return (
+              <Box key={tx} display="flex" alignItems="center" mr={1}>
+                <PickTag>{tx}</PickTag>
+                <RemoveBox>✖︎</RemoveBox>
+              </Box>
+            );
+          })}
         </PickBox>
-      }
+      )}
       {/* @@@ */}
-      <div style={{height:"500px"}}></div>
+      <div style={{ height: "500px" }} />
     </Box>
   );
 };

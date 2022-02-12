@@ -12,7 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { useCallback, useState } from "react";
+import UserDialog from "./user/UserDialog";
 import WysiwygEditor from "./wysiwyg/WysiwygEditor";
 
 const initialValue =
@@ -22,6 +23,12 @@ const Hello = () => {
   const onChangeEditor = (inputValue: string) => {
     console.log(inputValue);
   };
+
+  const [dialog, toggleDialog] = useState(false);
+
+  const onTogglDialog = useCallback(() => {
+    toggleDialog((prev) => !prev);
+  }, []);
 
   return (
     <Box>
@@ -45,7 +52,7 @@ const Hello = () => {
             <IconButton>
               <ArrowBack />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={onTogglDialog}>
               <Search />
             </IconButton>
             <IconButton>
@@ -53,6 +60,8 @@ const Hello = () => {
             </IconButton>
           </CardContent>
         </Card>
+
+        <UserDialog open={dialog} onToggle={onTogglDialog} />
 
         <Paper>
           <WysiwygEditor

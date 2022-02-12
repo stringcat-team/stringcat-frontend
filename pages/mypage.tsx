@@ -5,7 +5,7 @@ import MyPage from "../src/components/mypage/MyPage";
 
 const MyPagePage: NextPage = () => {
   return (
-    <Layout>
+    <Layout pageTitle="마이페이지">
       <MyPage />
     </Layout>
   );

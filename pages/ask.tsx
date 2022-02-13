@@ -5,7 +5,7 @@ import Ask from "../src/components/questions/ask/Ask";
 
 const AskPage: NextPage = () => {
   return (
-    <Layout>
+    <Layout pageTitle="질문작성">
       <Ask />
     </Layout>
   );

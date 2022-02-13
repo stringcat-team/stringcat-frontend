@@ -17,7 +17,6 @@ import {
 import { temp } from "./data";
 
 const FilterBox = () => {
-  // 검색창 노출
   const [filterState, setFilterState] = useState(true);
   const [resultList, setResultList] = useState([...temp]);
 
@@ -26,11 +25,6 @@ const FilterBox = () => {
     setFilterState((prev) => !prev);
   };
 
-
-const FilterBox = () => {
-  // 검색 기능
-
-
   const searchHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     const tx = event.target.value;
 
@@ -38,7 +32,6 @@ const FilterBox = () => {
       const tempObj = { ...obj };
       if (tempObj.name.indexOf(tx) > -1) {
         tempObj.name = tempObj.name.replace(tx, `<b style='color:black'>${tx}</b>`);
-
       }
       return tempObj;
     });
@@ -46,13 +39,6 @@ const FilterBox = () => {
     setResultList(newResultList);
   };
 
-  // 검색창 노출
-  const [filterState, setFilterState] = useState(true);
-  const searchBoxOpen = () => {
-    setResultList([...temp1]);
-    setFilterState(()=>!filterState);
-  }
-  
   // 결과 선택 기능
   const [pinkList, setPinktList] = useState<string[]>([]);
   const pinkHandler = (tx: string) => () => {
@@ -68,12 +54,10 @@ const FilterBox = () => {
           <BoldTypo variant="body1">필터링할 언어 추가하기</BoldTypo>
 
           <ArrowBox filterState={filterState} />
-
         </FilterBar>
       </MainBox>
       {!filterState ? (
         <SearchBox>
-
           <SearchBar onChange={searchHandler} />
           <SearchIcon sx={{ color: "#F5BF41", fontSize: "29px", position: "absolute" }} />
           <ResultBox>
@@ -96,7 +80,6 @@ const FilterBox = () => {
               </Box>
             );
           })}
-
         </PickBox>
       )}
       {/* @@@ */}

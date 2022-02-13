@@ -17,10 +17,10 @@ const OrderBox = () => {
               <BoldTypo variant="body1">정렬하기</BoldTypo>
             </Box>
             {
-              orderList && orderList.map(function(obj, i){
+              orderList && orderList.map((obj)=> {
                   return(
                     <TopLineBox key={obj.idx}>
-                      <Checkbox checked={obj.idx === act ? true : false} 
+                      <Checkbox checked={obj.idx === act} 
                       onClick={()=>{
                         setAct(obj.idx);
                       }}/>

@@ -1,4 +1,5 @@
-export const temp_1 = [
+// eslint-disable-next-line import/prefer-default-export
+export const temp1 = [
     {
         idx      : 1,
         name     : "java",

@@ -1,36 +1,38 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 import { 
   MainBox,FilterBar,BoldTypo,ArrowBox,SearchBox,
   SearchBar,ResultBox,ResultTypo,PickBox,PickTag,RemoveBox
 } from "./style";
-import SearchIcon from '@mui/icons-material/Search';
 
-import { temp_1 } from "./data";
+
+import { temp1 } from "./data";
 
 const FilterBox = () => {
-  // 검색창 노출
-  const [filterState, setFilterState] = useState(true);
-  const searchBoxOpen = () => {
-    setResultList([...temp_1]);
-    setFilterState(()=>!filterState);
-  }
-
   // 검색 기능
-  const [resultList, setResultList] = useState([...temp_1]);
+  const [resultList, setResultList] = useState([...temp1]);
   const searchHandler = (tx :string) => {
-    setResultList([...temp_1]);
+    setResultList([...temp1]);
     const tempList = [];
-    for (const obj of temp_1) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const obj of temp1) {
       const tempObj = {...obj}
       if(tempObj.name.indexOf(tx) > -1){
-        tempObj.name = tempObj.name.replace(tx, "<b style='color:black'>"+tx+"</b>");
+        tempObj.name = tempObj.name.replace(tx, `<b style='color:black'>${tx}</b>`);
         tempList.push(tempObj);
       }
     }
     setResultList([...tempList]);
   }
 
+  // 검색창 노출
+  const [filterState, setFilterState] = useState(true);
+  const searchBoxOpen = () => {
+    setResultList([...temp1]);
+    setFilterState(()=>!filterState);
+  }
+  
   // 결과 선택 기능
   const [pinkList, setPinktList] = useState<string[]>([]);
   const pinkHandler = (tx :string) => {
@@ -45,7 +47,7 @@ const FilterBox = () => {
         <FilterBar>
           <BoldTypo variant="body1">필터링할 언어 추가하기</BoldTypo>
           <ArrowBox sx={{
-            backgroundImage : "url(/images/floating/filter_" + (filterState ? "bottom" : "top") + ".png)"
+            backgroundImage : `url(/images/floating/filter_${  filterState ? "bottom" : "top"  }.png)`
           }} />
         </FilterBar>
       </MainBox>
@@ -54,12 +56,11 @@ const FilterBox = () => {
         <SearchBox>
           <SearchBar onChange={(e)=>{
             searchHandler(e.target.value);
-          }}>
-          </SearchBar>
+          }} />
           <SearchIcon sx={{ color: "#F5BF41",fontSize:"29px",position:"absolute" }}/>
           <ResultBox>
             {
-              resultList && resultList.map(function(obj, i){
+              resultList && resultList.map((obj)=> {
                   return(
                     <ResultTypo
                       onClick={() => {pinkHandler(obj.origName)} }
@@ -73,7 +74,7 @@ const FilterBox = () => {
         </SearchBox>
       : <PickBox>
           {
-            pinkList && pinkList.map(function(tx, i){
+            pinkList && pinkList.map((tx)=> {
                 return(
                   <>
                     <PickTag>{tx}</PickTag>
@@ -85,7 +86,7 @@ const FilterBox = () => {
         </PickBox>
       }
       {/* @@@ */}
-      <div style={{height:"500px"}}></div>
+      <div style={{height:"500px"}} />
     </Box>
   );
 };

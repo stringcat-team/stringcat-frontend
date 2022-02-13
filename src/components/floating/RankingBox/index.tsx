@@ -3,7 +3,7 @@ import {
 } from "@mui/material";
 import CircleImage from "../../user/CircleImage";
 
-import { temp_1 } from "./data";
+import { temp1 } from "./data";
 import { MainBox,TopLineBox,HoverBox,InlineTypo,SymmetryTypo,BoldTypo } from "./style";
 
 const RankingBox = () => {
@@ -16,7 +16,7 @@ const RankingBox = () => {
               <BoldTypo variant="body1">Top5 Ranking</BoldTypo>
             </Box>
             {
-              temp_1 && temp_1.map(function(obj, i){
+              temp1 && temp1.map((obj, i)=> {
                   return(
                     <TopLineBox key={obj.idx}>
                       <HoverBox>

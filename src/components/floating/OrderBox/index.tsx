@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Box, Card, Container, Checkbox } from "@mui/material";
-
 import { MainBox, TopLineBox, InlineTypo, BoldTypo } from "./style";
 import { orderList } from "./data";
 
@@ -27,6 +26,7 @@ const OrderBox = () => {
                 </TopLineBox>
               );
             })}
+
           </MainBox>
         </Card>
       </Container>

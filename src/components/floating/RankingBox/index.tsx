@@ -1,8 +1,8 @@
 import { Box, Card, Container } from "@mui/material";
 import CircleImage from "../../user/CircleImage";
-
 import { temp } from "./data";
 import { MainBox, TopLineBox, HoverBox, InlineTypo, SymmetryTypo, BoldTypo } from "./style";
+
 
 const RankingBox = () => {
   return (
@@ -24,6 +24,7 @@ const RankingBox = () => {
                 </TopLineBox>
               );
             })}
+
           </MainBox>
         </Card>
       </Container>

@@ -26,3 +26,4 @@ export const temp = [
     point: 600,
   },
 ];
+

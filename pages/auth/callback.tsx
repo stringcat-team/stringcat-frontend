@@ -15,6 +15,8 @@ const CallbackPage: NextPage = () => {
 
   useEffect(() => {
     if (code) {
+      localStorage.removeItem("code");
+      localStorage.setItem("code", code as string);
       dispatch(oauthLoginRequest(code as OauthCallbackCode));
     }
   }, [code, dispatch]);

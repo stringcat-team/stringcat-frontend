@@ -16,6 +16,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   paddingTop: theme.spacing(2),
   boxShadow: "none",
+  border: `1px solid ${theme.palette.background.default}`,
   "&:hover": {
     border: `1px solid ${theme.palette.primary.main}`,
     boxShadow: theme.shadows[8],
@@ -38,7 +39,9 @@ const RankingItem = ({ userInfo }: Props) => {
         <StyledChip label="Typescript" />
       </Box>
       <Box p={1}>
-        <Typography>Amet minim mollit non deserunt ullamco est sit</Typography>
+        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+          Amet minim mollit non deserunt ullamco est sit
+        </Typography>
       </Box>
     </StyledPaper>
   );

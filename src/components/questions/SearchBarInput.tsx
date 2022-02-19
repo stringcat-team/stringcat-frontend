@@ -15,15 +15,17 @@ const InputBox = styled(Box)<Partial<Props>>(({ theme, sx }) => ({
 interface Props {
   sx?: SxProps | null;
   placeholder?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const SearchBarInput = ({ sx, placeholder }: Props) => {
+const SearchBarInput = ({ sx, placeholder, onChange }: Props) => {
   return (
     <InputBox sx={sx}>
       <InputBase
         fullWidth
         placeholder={placeholder}
         inputProps={{ sx: { fontSize: 13 } }}
+        onChange={onChange}
         name="title"
       />
       <Button sx={{ display: "flex", p: 0, width: 85, mr: 1 }}>
@@ -42,6 +44,7 @@ const SearchBarInput = ({ sx, placeholder }: Props) => {
 SearchBarInput.defaultProps = {
   sx: null,
   placeholder: "search",
+  onChange: () => {},
 };
 
 export default SearchBarInput;

@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import Layout from "../src/components/Layout/Layout";
-import Hello from "../src/components/Hello";
+import Home from "../src/components/Home";
 
 const Index: NextPage = () => {
   return (
     <Layout pageTitle="StringCat">
-      <Hello />
+      <Home />
     </Layout>
   );
 };

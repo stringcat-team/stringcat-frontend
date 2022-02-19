@@ -65,42 +65,42 @@ const FilterBox = () => {
   }
 
   return (
-    <Box sx={{ mt: 5, ml: 5 }}>
-      <MainBox onClick={searchBoxOpen}>
-        <FilterBar>
-          <BoldTypo variant="body1">필터링할 언어 추가하기</BoldTypo>
-          <ArrowBox filterState={filterState} />
-        </FilterBar>
-      </MainBox>
-      {!filterState ? (
-        <SearchBox>
-          <SearchBar onChange={searchHandler} />
-          <SearchIcon sx={{ color: "#F5BF41", fontSize: "29px", position: "absolute" }} />
-          <ResultBox>
-            {resultList?.map((obj) => {
-              return (
-                <ResultTypo onClick={pinkHandler(obj)} key={obj.idx}
-                  dangerouslySetInnerHTML={{__html: obj.name}}
-                />
-              );
-            })}
-          </ResultBox>
-        </SearchBox>
-      ) : (
-        <PickBox>
-          {pinkList?.map((obj) => {
+    <Box>
+    <MainBox onClick={searchBoxOpen}>
+      <FilterBar>
+        <BoldTypo variant="body1">필터링할 언어 추가하기</BoldTypo>
+        <ArrowBox filterState={filterState} />
+      </FilterBar>
+    </MainBox>
+    {!filterState ? (
+      <SearchBox>
+        <SearchBar onChange={searchHandler} />
+        <SearchIcon sx={{ color: "#F5BF41", fontSize: "29px", position: "absolute" }} />
+        <ResultBox>
+          {resultList?.map((obj) => {
             return (
-              <PickTag 
-                hover={obj.idx === hoverState}
-                onMouseOver={()=>{setHoverState(obj.idx)}}
-                onMouseOut={()=>{setHoverState(0)}}
-                onClick={()=>{removeTag(obj.idx)}}
-              >{obj.origName}
-              </PickTag>
+              <ResultTypo onClick={pinkHandler(obj)} key={obj.idx}
+                dangerouslySetInnerHTML={{__html: obj.name}}
+              />
             );
           })}
-        </PickBox>
-      )}
+        </ResultBox>
+      </SearchBox>
+    ) : (
+      <PickBox>
+        {pinkList?.map((obj) => {
+          return (
+            <PickTag 
+              hover={obj.idx === hoverState}
+              onMouseOver={()=>{setHoverState(obj.idx)}}
+              onMouseOut={()=>{setHoverState(0)}}
+              onClick={()=>{removeTag(obj.idx)}}
+            >{obj.origName}
+            </PickTag>
+          );
+        })}
+      </PickBox>
+    )}
     </Box>
   );
 };

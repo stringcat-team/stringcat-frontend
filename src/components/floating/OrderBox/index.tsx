@@ -7,7 +7,7 @@ const OrderBox = () => {
   const [act, setAct] = useState(1);
   return (
     <Box>
-      <Container sx={{ mt: 5 }}>
+      <Container>
         <Card sx={{ width: 250 }}>
           <MainBox>
             <Box sx={{ paddingBottom: 1 }}>

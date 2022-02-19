@@ -101,8 +101,6 @@ const FilterBox = () => {
           })}
         </PickBox>
       )}
-      {/* @@@ */}
-      <div style={{ height: "500px" }} />
     </Box>
   );
 };

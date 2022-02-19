@@ -1,7 +1,8 @@
 import { Box, Card, CardContent, Chip, Paper, styled, Typography } from "@mui/material";
-import React from "react";
+import React, { MouseEventHandler, useCallback, useState } from "react";
 import UserProfile from "../user/UserProfile";
 import { UserInfo } from "../../@types/redux/reducers/user.interface";
+import UserDialog from "../user/UserDialog";
 
 interface Props {
   userInfo: {
@@ -30,9 +31,15 @@ const StyledChip = styled(Chip)(({ theme }) => ({
 }));
 
 const RankingItem = ({ userInfo }: Props) => {
+  const [dialog, toggleDialog] = useState<boolean>(false);
   const { id, imageUrl, score, nickname } = userInfo;
+
+  const onToggleDialog = useCallback(() => {
+    toggleDialog(!dialog);
+  }, [dialog]);
+
   return (
-    <StyledPaper>
+    <StyledPaper onClick={onToggleDialog}>
       <UserProfile userId={id} score={score} avatar={imageUrl} name={nickname} variant="centered" />
       <Box sx={{ display: "flex", overflow: "hidden" }}>
         <StyledChip label="Javascript" />
@@ -43,6 +50,7 @@ const RankingItem = ({ userInfo }: Props) => {
           Amet minim mollit non deserunt ullamco est sit
         </Typography>
       </Box>
+      <UserDialog open={dialog} onToggle={onToggleDialog} />
     </StyledPaper>
   );
 };

@@ -74,4 +74,4 @@ const UserDialog = ({ open, onToggle }: UserDialogProps) => {
   );
 };
 
-export default UserDialog;
+export default React.memo(UserDialog);

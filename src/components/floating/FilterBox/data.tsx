@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/prefer-default-export
 export const temp = [
   {
-    idx: 1,
+    idx: 1, 
     name: "java",
     origName: "java",
   },

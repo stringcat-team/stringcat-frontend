@@ -5,6 +5,7 @@ export const MainBox = styled(CardContent)(({ theme }) => ({
   border: "solid 1px #C1C1C1",
   width: 300,
   borderRadius: 5,
+  backgroundColor: "#fff",
   "&::after": {
     content: '""',
     display: "block",
@@ -80,13 +81,19 @@ export const ResultTypo = styled(Typography)(({ theme }) => ({
 }));
 
 export const PickBox = styled(Box)(({ theme }) => ({
-  width: 280,
+  width: 330,
   marginTop: 10,
-  display: "flex",
 }));
 
-export const PickTag = styled(Box)(({ theme }) => ({
+interface HoverEvent {
+  hover : boolean,
+};
+
+export const PickTag = styled(Box, {
+  shouldForwardProp: (props) => props !== "hover",
+  })<HoverEvent>(({ theme,hover }) => ({
   padding: "4px 8px",
+  position: "relative",
   display: "inline-block",
   backgroundColor: "#F5BF41",
   color: "black",
@@ -96,6 +103,17 @@ export const PickTag = styled(Box)(({ theme }) => ({
   marginBottom: 5,
   cursor: "pointer",
   fontWeight: 500,
+  height: 30,
+  ...hover && {
+    "&:after": {
+      position: "absolute",
+      right: -5,
+      top: -10,
+      content: '"✖︎"',
+      fontSize: 16,
+      transition: "all 0.2s ease", 
+    },
+  }
 }));
 
 export const RemoveBox = styled(Box)(({ theme }) => ({

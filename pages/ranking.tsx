@@ -1,14 +1,14 @@
 import { NextPage } from "next";
 import React from "react";
 import Layout from "../src/components/Layout/Layout";
-import Users from "../src/components/users/Users";
+import Ranking from "../src/components/ranking/Ranking";
 
-const UsersPage: NextPage = () => {
+const RankingPage: NextPage = () => {
   return (
     <Layout pageTitle="유저 리스트">
-      <Users />
+      <Ranking />
     </Layout>
   );
 };
 
-export default UsersPage;
+export default RankingPage;

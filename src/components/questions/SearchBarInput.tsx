@@ -1,8 +1,8 @@
 import { ExpandMore, Search } from "@mui/icons-material";
-import { InputBase, Box, styled, Button, Typography } from "@mui/material";
+import { InputBase, Box, styled, Button, Typography, SxProps } from "@mui/material";
 import React from "react";
 
-const InputBox = styled(Box)(({ theme }) => ({
+const InputBox = styled(Box)<Partial<Props>>(({ theme, sx }) => ({
   flex: 1,
   border: `1px solid ${theme.palette.primary.contrastText}`,
   borderRadius: 5,
@@ -12,12 +12,17 @@ const InputBox = styled(Box)(({ theme }) => ({
   height: 32,
 }));
 
-const SearchBarInput = () => {
+interface Props {
+  sx?: SxProps | null;
+  placeholder?: string;
+}
+
+const SearchBarInput = ({ sx, placeholder }: Props) => {
   return (
-    <InputBox>
+    <InputBox sx={sx}>
       <InputBase
         fullWidth
-        placeholder="search"
+        placeholder={placeholder}
         inputProps={{ sx: { fontSize: 13 } }}
         name="title"
       />
@@ -32,6 +37,11 @@ const SearchBarInput = () => {
       </Button>
     </InputBox>
   );
+};
+
+SearchBarInput.defaultProps = {
+  sx: null,
+  placeholder: "search",
 };
 
 export default SearchBarInput;

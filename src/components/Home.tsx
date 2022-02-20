@@ -1,18 +1,20 @@
 import {
   Box,
-  Button,
   Card,
   Container,
   Typography,
   styled,
   Avatar,
 } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import React, { useCallback, useState } from "react";
+import Image from "next/image";
 import Question from "./questions/Question";
 import FilterBox from "./floating/FilterBox";
 import OrderBox from "./floating/OrderBox";
 import RankingBox from "./floating/RankingBox";
+
+import { USER_LIST, QUESTION_LIST } from "../utils/dummies";
 
 const HomeContainer = styled(Container)(({ theme }) => ({
   position: "relative",
@@ -77,14 +79,37 @@ const InfoText = styled(Typography)(({ theme }) => ({
   marginTop: 11,
 }));
 
-const tempData = {
-  "idx"     : 1,
-  "img"     : "https://mui.com/static/images/avatar/1.jpg",
-  "name"    : "조대희",
-}
-
 const Home = () => {
-  const [data, setData] = useState({...tempData});
+  const [data, setData] = useState({...USER_LIST[0]});
+  const [list, setList] = useState<any>([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // @@@ 임시 딜레이 삽입(로딩 이미지 확인)
+    // API 완료 후 로직(setTimeout 삭제 등..) 및 any type 변경
+    setLoading(true);
+    window.setTimeout(() => {
+      const filterList = QUESTION_LIST.filter((obj) => obj.page === page);
+      setList((l: any) => [...l, ...filterList]);
+      setLoading(false);
+    }, page === 1 ? 0 : 2200);
+  }, [page])
+  
+  // 스크롤 이벤트 핸들러
+  useEffect(() => {
+    const handleScroll = () => {
+      const {scrollHeight,scrollTop,clientHeight} = document.documentElement;
+      const lastPage = QUESTION_LIST[QUESTION_LIST.length-1]?.page;
+      if (scrollTop + clientHeight >= scrollHeight && !loading && lastPage > page) {
+        setPage(prev => prev + 1);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [list, loading, page]);
 
   return (
     <HomeContainer>
@@ -99,9 +124,9 @@ const Home = () => {
         <Link passHref href="/ask">
           <AskCard>
             <ProfileBox>
-              <ProfileImg alt="Remy Sharp" src={data.img} />
+              <ProfileImg alt="Remy Sharp" src={data?.imageUrl} />
               <ProfileTextBox >
-                <ProfileText>{data.name}</ProfileText>
+                <ProfileText>{data?.nickname}</ProfileText>
               </ProfileTextBox>
             </ProfileBox>
             <InfoText>
@@ -109,10 +134,16 @@ const Home = () => {
             </InfoText>
           </AskCard>
         </Link>
-        <Question />
-        <Question />
-        <Question />
+        {list?.map((obj :any, i :number) => (
+          <Question key={obj.idx} data={obj} />
+        ))}
       </QuestionsBox>
+      {loading
+      ? (<Box sx={{textAlign:"center"}}>
+          <Image src="/images/loading.gif" height={120} width={120}/>
+         </Box>)
+      : (<Box sx={{height:100}}/>)
+      }
     </HomeContainer>
   );
 };

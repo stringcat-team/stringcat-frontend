@@ -1,12 +1,9 @@
-import { ExpandMore, Search } from "@mui/icons-material";
 import { Box, styled, Card, Typography, Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
 
 const QuestionCard = styled(Card)(({ theme }) => ({
   width: 560,
-  maxHeight: 480,
-  minHeight: 300,
   overflowY: "hidden",
   marginBottom: 10 ,
   display: "inline-block",
@@ -33,6 +30,8 @@ const ProfileTextBox = styled(Box)(({ theme }) => ({
 }));
 
 const ContentBox = styled(Box)(({ theme }) => ({
+  maxHeight: 530,
+  minHeight: 130,
   textAlign: "left"
 }));
 
@@ -93,36 +92,9 @@ const LangTag = styled(Box)(({ theme }) => ({
   float: "left",
 }));
 
-const tempData = {
-  "idx"     : 1,
-  "img"     : "https://mui.com/static/images/avatar/1.jpg",
-  "name"    : "조대희",
-  "point"   : 1020,
-  "up"      : 10,
-  "down"    : 2,
-  "reply"   : 3,
-  "title"   : "이런 오류가 나는데 왜 이런걸까요?",
-  "contant" : `<p>
-                  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
-                  Velit officia consequat duis enim velit mollit. Exercitation veniam consequat 
-                  sunt nostrud amet.
-               </p>
-               <div style="width:100%;height:150px;background-color:silver;"></div>`,
-}
-const leng = [
-  {
-    "idx"  : 1,
-    "name" : "java"
-  },
-  {
-    "idx"  : 2,
-    "name" : "javaScript"
-  },
-];
-
-const Question = () => {
-  const [data, setData] = useState({...tempData});
-  const [lengList, setLengList] = useState(leng);
+// @@@ 추후 any TYPE 수정
+const Question = (props :any) => {
+  const { data } = props;
 
   return (
     <Box>
@@ -136,7 +108,7 @@ const Question = () => {
         </ProfileBox>
         <TitleText>{data.title}</TitleText>
         <LangTagBox>
-          {lengList?.map((obj) => {
+          {data?.leng?.map((obj :any) => {
               return (
                 <LangTag key={obj.idx}>{obj.name}</LangTag>
               );

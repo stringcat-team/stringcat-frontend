@@ -72,6 +72,7 @@ class AuthService {
             },
           });
           const githubToken = data.split("&")[0].replace("access_token=", "");
+          console.log(githubToken);
           const response: OauthLoginReponse = await AuthService.checkRefreshToken(
             githubToken,
             AuthService.SERVER_GITHUB,
@@ -98,6 +99,7 @@ class AuthService {
               code,
             },
           });
+          console.log(data);
 
           const response: OauthLoginReponse = await AuthService.checkRefreshToken(
             data.access_token,
@@ -126,6 +128,8 @@ class AuthService {
               code,
             },
           });
+
+          console.log(data);
 
           const response: OauthLoginReponse = await AuthService.checkRefreshToken(
             data.access_token,

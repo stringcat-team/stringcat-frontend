@@ -14,15 +14,15 @@ function* oauthLoginRequest({ payload }: OauthLoginRequest) {
 
     switch (type) {
       case "kakao": {
-        response = yield call(() => AuthService.getKakaoToken(code));
+        response = yield call(AuthService.getKakaoToken, code);
         break;
       }
       case "github": {
-        response = yield call(() => AuthService.getGithubToken(code));
+        response = yield call(AuthService.getGithubToken, code);
         break;
       }
       case "google": {
-        response = yield call(() => AuthService.getGoogleToken(code));
+        response = yield call(AuthService.getGoogleToken, code);
         break;
       }
       default:

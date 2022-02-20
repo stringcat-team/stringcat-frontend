@@ -49,7 +49,7 @@ const UserDialog = ({ open, onToggle }: UserDialogProps) => {
   return (
     <Dialog open={open} onClose={onToggle} PaperComponent={getPaperComponent}>
       <Box>
-        <UserProfile name="Nickname" reputation={1020} userId="test" />
+        <UserProfile name="Nickname" score={1020} userId={1123} />
         <Box mb={1.5}>
           <StyledChip label="Javscript" />
           <StyledChip label="Typescript" />
@@ -74,4 +74,4 @@ const UserDialog = ({ open, onToggle }: UserDialogProps) => {
   );
 };
 
-export default UserDialog;
+export default React.memo(UserDialog);

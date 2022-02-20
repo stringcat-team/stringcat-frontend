@@ -39,7 +39,7 @@ const Header = () => {
               <Home />
             </StyledButton>
           </Link>
-          <Link passHref href="/users">
+          <Link passHref href="/ranking">
             <StyledButton>
               <SupervisedUserCircle />
             </StyledButton>

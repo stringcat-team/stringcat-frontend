@@ -1,4 +1,4 @@
-import { Box, styled, CardContent, Typography } from "@mui/material";
+import { Box, styled, CardContent, Typography, Avatar } from "@mui/material";
 
 export const MainBox = styled(CardContent)(({ theme }) => ({
   padding: "10px",
@@ -10,14 +10,13 @@ export const MainBox = styled(CardContent)(({ theme }) => ({
 export const TopLineBox = styled(Box)(({ theme }) => ({
   borderTop: "solid 1px silver",
   position: "relative",
-  // padding : "3px 0 0",
+  padding : "5px 0",
   cursor: "pointer",
 }));
 
 export const HoverBox = styled(Box)(({ theme }) => ({
   transition: "ease all 0.2s",
   borderRadius: 10,
-  margin: "5px 0",
   "&:hover": {
     backgroundColor: "#FFEDC2",
   },
@@ -37,4 +36,11 @@ export const SymmetryTypo = styled(Typography)(({ theme }) => ({
 
 export const BoldTypo = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
+}));
+
+export const ProfileImg = styled(Avatar)(({ theme }) => ({
+  display: "inline-block",
+  width: 35,
+  height: 35,
+  marginTop: 2,
 }));

@@ -3,9 +3,10 @@ import { Box, styled, CardContent, Typography, Card, InputBase, CardTypeMap } fr
 export const MainBox = styled(CardContent)(({ theme }) => ({
   padding: "10px",
   border: "solid 1px #C1C1C1",
-  width: 300,
+  width: 280,
   borderRadius: 5,
   backgroundColor: "#fff",
+  display: "inline-block",
   "&::after": {
     content: '""',
     display: "block",
@@ -46,7 +47,7 @@ export const ArrowBox = styled(Card, {
 }));
 
 export const SearchBox = styled(Card)(({ theme }) => ({
-  width: 300,
+  width: 280,
   height: 215,
   borderRadius: 5,
   marginTop: 10,
@@ -55,7 +56,7 @@ export const SearchBox = styled(Card)(({ theme }) => ({
 }));
 
 export const SearchBar = styled(InputBase)(({ theme }) => ({
-  width: 250,
+  width: 230,
   height: 30,
   borderRadius: 5,
   padding: 3,
@@ -64,7 +65,7 @@ export const SearchBar = styled(InputBase)(({ theme }) => ({
 }));
 
 export const ResultBox = styled(Box)(({ theme }) => ({
-  width: 280,
+  width: 260,
   height: 165,
   padding: 5,
   marginRight: 5,
@@ -81,7 +82,7 @@ export const ResultTypo = styled(Typography)(({ theme }) => ({
 }));
 
 export const PickBox = styled(Box)(({ theme }) => ({
-  width: 330,
+  width: 280,
   marginTop: 10,
 }));
 

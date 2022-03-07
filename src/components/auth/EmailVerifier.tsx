@@ -5,7 +5,7 @@ import React, { FormEventHandler, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthService from "../../../pages/api/AuthService";
 import { RootState } from "../../redux/reducers";
-import { sendEmailRequest } from "../../redux/reducers/auth";
+import { sendEmailRequest, verifyEmailCodeRequest } from "../../redux/reducers/auth";
 import { LOADING_IMAGE } from "../../utils/const";
 
 const EmailVerifier = () => {
@@ -22,7 +22,8 @@ const EmailVerifier = () => {
     }
 
     if (email) {
-      console.log(value);
+      const request = { email, code: value };
+      dispatch(verifyEmailCodeRequest(request, router));
       return;
     }
 

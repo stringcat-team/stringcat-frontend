@@ -1,10 +1,17 @@
-import { OauthCallbackCode, OauthLoginReponse } from "../../../../pages/api/AuthService";
+import { NextRouter } from "next/router";
+import {
+  IVerfiyEmailCodeRequest,
+  OauthCallbackCode,
+  OauthLoginReponse,
+} from "../../../../pages/api/AuthService";
 
 export enum AuthActionTypes {
   OAUTH_LOGIN_REQUEST = "OAUTH_LOGIN_REQUEST",
   OAUTH_LOGIN_SUCCESS = "OAUTH_LOGIN_SUCCESS",
   SEND_EMAIL_REQUEST = "SEND_EMAIL_REQUEST",
   SEND_EMAIL_SUCCESS = "SEND_EMAIL_SUCCESS",
+  VERIFY_EMAIL_CODE_REQUEST = "VERIFY_EMAIL_CODE_REQUEST",
+  VERIFY_EMAIL_CODE_SUCCESS = "VERIFY_EMAIL_CODE_SUCCESS",
   AUTH_ERROR = "AUTH_ERROR",
 }
 
@@ -13,6 +20,8 @@ export type AuthActions =
   | OauthLoginSuccess
   | SendEmailRequest
   | SendEmailSuccess
+  | VerifyEmailCodeRequest
+  | VerifyEmailCodeSuccess
   | AuthError;
 
 export type AuthState = {
@@ -40,6 +49,15 @@ export interface SendEmailRequest {
 export interface SendEmailSuccess {
   type: AuthActionTypes.SEND_EMAIL_SUCCESS;
   payload: { email: string };
+}
+
+export interface VerifyEmailCodeRequest {
+  type: AuthActionTypes.VERIFY_EMAIL_CODE_REQUEST;
+  payload: { request: IVerfiyEmailCodeRequest; router: NextRouter };
+}
+export interface VerifyEmailCodeSuccess {
+  type: AuthActionTypes.VERIFY_EMAIL_CODE_SUCCESS;
+  payload: {};
 }
 
 export interface AuthError {

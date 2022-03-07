@@ -1,4 +1,9 @@
-import { OauthLoginReponse, OauthCallbackCode } from "../../../pages/api/AuthService";
+import { NextRouter } from "next/router";
+import {
+  OauthLoginReponse,
+  OauthCallbackCode,
+  IVerfiyEmailCodeRequest,
+} from "../../../pages/api/AuthService";
 import {
   AuthActionTypes,
   AuthState,
@@ -6,6 +11,8 @@ import {
   SendEmailRequest,
   SendEmailSuccess,
   AuthError,
+  VerifyEmailCodeRequest,
+  VerifyEmailCodeSuccess,
 } from "../../@types/redux/reducers/auth.interface";
 
 const {
@@ -13,6 +20,8 @@ const {
   OAUTH_LOGIN_SUCCESS,
   SEND_EMAIL_REQUEST,
   SEND_EMAIL_SUCCESS,
+  VERIFY_EMAIL_CODE_REQUEST,
+  VERIFY_EMAIL_CODE_SUCCESS,
   AUTH_ERROR,
 } = AuthActionTypes;
 
@@ -34,6 +43,19 @@ export const sendEmailRequest = (email: string): SendEmailRequest => ({
 export const sendEmailSuccess = (email: string): SendEmailSuccess => ({
   type: SEND_EMAIL_SUCCESS,
   payload: { email },
+});
+
+export const verifyEmailCodeRequest = (
+  request: IVerfiyEmailCodeRequest,
+  router: NextRouter,
+): VerifyEmailCodeRequest => ({
+  type: VERIFY_EMAIL_CODE_REQUEST,
+  payload: { request, router },
+});
+
+export const verifyEmailCodeSuccess = (): VerifyEmailCodeSuccess => ({
+  type: VERIFY_EMAIL_CODE_SUCCESS,
+  payload: {},
 });
 
 export const authError = (): AuthError => ({
@@ -72,6 +94,16 @@ const AuthReducer = (state = initialState, action: AuthActions): AuthState => {
         ...state,
         status: "ok",
         email: action.payload.email,
+      };
+    case VERIFY_EMAIL_CODE_REQUEST:
+      return {
+        ...state,
+        status: "loading",
+      };
+    case VERIFY_EMAIL_CODE_SUCCESS:
+      return {
+        ...state,
+        status: "ok",
       };
     case AUTH_ERROR:
       return {

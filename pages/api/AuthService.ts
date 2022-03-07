@@ -19,7 +19,7 @@ export interface SignUpForm {
   skills?: string;
 }
 
-export interface VerfiyEmailCodeRequest {
+export interface IVerfiyEmailCodeRequest {
   code: string;
   email: string;
 }
@@ -171,7 +171,7 @@ class AuthService {
     });
   }
 
-  static verifyCode(request: VerfiyEmailCodeRequest) {
+  static verifyCode(request: IVerfiyEmailCodeRequest) {
     return new Promise<AxiosResponse>((resolve, reject) => {
       (async () => {
         try {

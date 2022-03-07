@@ -29,6 +29,13 @@ export interface SignUpResponse extends Partial<AxiosResponse> {
   };
 }
 
+export type LoginResponse = SignUpResponse;
+
+export interface LoginForm {
+  email: string;
+  password: string;
+}
+
 export interface IVerfiyEmailCodeRequest {
   code: string;
   email: string;
@@ -57,6 +64,8 @@ class AuthService {
   static VERIFY_CODE = "auth/mail/verify/email";
 
   static SIGN_UP = "auth/sign-up";
+
+  static LOGIN = "auth/login";
 
   static checkRefreshToken(accessToken: string | string[], url: string) {
     return new Promise<OauthLoginReponse>((resolve, reject) => {
@@ -204,6 +213,23 @@ class AuthService {
         try {
           const response: SignUpResponse = await axios({
             url: `${AuthService.SERVER_ADDRESS}/${AuthService.SIGN_UP}`,
+            method: "POST",
+            data: { ...form },
+          });
+          resolve(response);
+        } catch (e) {
+          reject(e);
+        }
+      })();
+    });
+  }
+
+  static login(form: LoginForm) {
+    return new Promise<LoginResponse>((resolve, reject) => {
+      (async () => {
+        try {
+          const response: LoginResponse = await axios({
+            url: `${AuthService.SERVER_ADDRESS}/${AuthService.LOGIN}`,
             method: "POST",
             data: { ...form },
           });

@@ -1,5 +1,6 @@
 import { Box, Typography, styled, Button } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -16,6 +17,15 @@ const StyledButton = styled(Button)(({ theme }) => ({
   display: "flex",
   color: theme.palette.text.primary,
   justifyContent: "flex-start",
+  "&:hover": {
+    background: theme.palette.primary.main,
+  },
+}));
+
+const EmailButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  marginTop: theme.spacing(1),
+  borderRadius: 18,
   "&:hover": {
     background: theme.palette.primary.main,
   },
@@ -86,6 +96,12 @@ const LoginSocial = () => {
           </StyledButton>
         );
       })}
+
+      <Link passHref href="/auth/email">
+        <EmailButton variant="text" fullWidth>
+          E-mail로 가입하기
+        </EmailButton>
+      </Link>
     </Box>
   );
 };

@@ -14,14 +14,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
   position: "relative",
 }));
 
-const StyledButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  borderRadius: 18,
-  "&:hover": {
-    background: theme.palette.primary.main,
-  },
-}));
-
 const Login = () => {
   const theme = useTheme();
 
@@ -37,21 +29,6 @@ const Login = () => {
       <Box display="flex" justifyContent="space-around" mb={1}>
         <LoginForm />
         <LoginSocial />
-      </Box>
-      <Box display="flex" justifyContent="space-around">
-        <Box flex={1} pr={1} display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="body2">비밀번호를 잊으셨나요?</Typography>
-          <Button variant="contained" disableElevation>
-            로그인 하기
-          </Button>
-        </Box>
-        <Box flex={1} pl={2} display="flex" justifyContent="center" alignItems="center">
-          <Link passHref href="/auth/email">
-            <StyledButton variant="text" fullWidth>
-              E-mail로 가입하기
-            </StyledButton>
-          </Link>
-        </Box>
       </Box>
     </StyledBox>
   );

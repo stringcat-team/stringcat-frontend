@@ -2,6 +2,7 @@ import { NextRouter } from "next/router";
 import {
   AccessToken,
   IVerfiyEmailCodeRequest,
+  LoginForm,
   OauthCallbackCode,
   OauthLoginReponse,
   SignUpForm,
@@ -16,6 +17,8 @@ export enum AuthActionTypes {
   VERIFY_EMAIL_CODE_SUCCESS = "VERIFY_EMAIL_CODE_SUCCESS",
   SIGN_UP_REQUEST = "SIGN_UP_REQUEST",
   SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS",
+  LOGIN_REQUEST = "LOGIN_REQUEST",
+  LOGIN_SUCCESS = "LOGIN_SUCCESS",
   AUTH_ERROR = "AUTH_ERROR",
 }
 
@@ -28,6 +31,8 @@ export type AuthActions =
   | VerifyEmailCodeSuccess
   | SignUpRequest
   | SignUpSuccess
+  | LoginRequest
+  | LoginSuccess
   | AuthError;
 
 export type AuthState = {
@@ -73,6 +78,16 @@ export interface SignUpRequest {
 
 export interface SignUpSuccess {
   type: AuthActionTypes.SIGN_UP_SUCCESS;
+  payload: { accessToken: AccessToken };
+}
+
+export interface LoginRequest {
+  type: AuthActionTypes.LOGIN_REQUEST;
+  payload: { form: LoginForm; router: NextRouter };
+}
+
+export interface LoginSuccess {
+  type: AuthActionTypes.LOGIN_SUCCESS;
   payload: { accessToken: AccessToken };
 }
 

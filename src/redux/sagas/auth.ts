@@ -2,22 +2,33 @@ import { put, all, fork, takeLatest, call } from "redux-saga/effects";
 import { AxiosResponse } from "axios";
 import {
   AuthActionTypes,
+  LoginRequest,
   OauthLoginRequest,
   SendEmailRequest,
   SignUpRequest,
   VerifyEmailCodeRequest,
 } from "../../@types/redux/reducers/auth.interface";
-import AuthService, { OauthLoginReponse, SignUpResponse } from "../../../pages/api/AuthService";
+import AuthService, {
+  LoginResponse,
+  OauthLoginReponse,
+  SignUpResponse,
+} from "../../../pages/api/AuthService";
 import {
   authError,
+  loginSuccess,
   oauthLoginSuccess,
   sendEmailSuccess,
   signUpSuccess,
   verifyEmailCodeSuccess,
 } from "../reducers/auth";
 
-const { OAUTH_LOGIN_REQUEST, SEND_EMAIL_REQUEST, VERIFY_EMAIL_CODE_REQUEST, SIGN_UP_REQUEST } =
-  AuthActionTypes;
+const {
+  OAUTH_LOGIN_REQUEST,
+  SEND_EMAIL_REQUEST,
+  VERIFY_EMAIL_CODE_REQUEST,
+  SIGN_UP_REQUEST,
+  LOGIN_REQUEST,
+} = AuthActionTypes;
 
 function* oauthLoginRequest({ payload }: OauthLoginRequest) {
   try {
@@ -83,14 +94,27 @@ function* verifyEmailCodeRequest({ payload }: VerifyEmailCodeRequest) {
 function* signUpRequest({ payload }: SignUpRequest) {
   try {
     const { request, router } = payload;
-    const response: SignUpResponse = yield call(AuthService.signUp, request);
-    if (response.data?.accessToken) {
-      yield put(signUpSuccess(response.data.accessToken));
+    const response: AxiosResponse<SignUpResponse> = yield call(AuthService.signUp, request);
+    if (response.data.data?.accessToken) {
+      yield put(signUpSuccess(response.data.data.accessToken));
       router.push("/");
       return;
     }
-    if (response.code === "CF01") {
+    if (response.data.code === "CF01") {
       throw new Error("이미 존재하는 이메일입니다.");
+    }
+  } catch (error) {
+    yield put(authError());
+  }
+}
+
+function* loginRequest({ payload }: LoginRequest) {
+  try {
+    const { form, router } = payload;
+    const response: AxiosResponse<LoginResponse> = yield call(AuthService.login, form);
+    if (response.data.data?.accessToken) {
+      yield put(loginSuccess(response.data.data?.accessToken));
+      router.push("/");
     }
   } catch (error) {
     yield put(authError());
@@ -113,11 +137,16 @@ function* signUpRequestWatcher() {
   yield takeLatest(SIGN_UP_REQUEST, signUpRequest);
 }
 
+function* loginRequestWatcher() {
+  yield takeLatest(LOGIN_REQUEST, loginRequest);
+}
+
 export default function* AuthSaga() {
   yield all([
     fork(oauthRefreshTokenRequestWatcher),
     fork(sendEmailRequestWatcher),
     fork(verifyEmailCodeRequestWatcher),
     fork(signUpRequestWatcher),
+    fork(loginRequestWatcher),
   ]);
 }

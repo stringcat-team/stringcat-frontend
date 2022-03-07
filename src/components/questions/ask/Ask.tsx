@@ -9,7 +9,7 @@ const Ask = () => {
   return (
     <Container sx={{ width: 590, height: "100%" }}>
       <Paper sx={{ p: 2, height: "100%" }}>
-        <UserProfile name="Nickname" reputation={1020} userId="nickname" />
+        <UserProfile name="Nickname" score={1020} userId={100} />
         <Input fullWidth sx={{ mb: 2 }} />
         <Box mb={3}>
           <WysiwygEditor onChange={onChange} height="534px" />

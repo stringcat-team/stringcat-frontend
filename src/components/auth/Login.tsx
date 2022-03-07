@@ -1,6 +1,10 @@
 import { Box, Button, styled, Typography, useTheme } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/reducers";
+import { LOADING_IMAGE } from "../../utils/const";
 import Logo from "../Logo";
 import LoginForm from "./LoginForm";
 import LoginSocial from "./LoginSocial";
@@ -16,6 +20,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 const Login = () => {
   const theme = useTheme();
+  const { status } = useSelector((state: RootState) => state.auth);
 
   return (
     <StyledBox>
@@ -27,8 +32,14 @@ const Login = () => {
         개발자들을 위한 커뮤니티 stringcat
       </Typography>
       <Box display="flex" justifyContent="space-around" mb={1}>
-        <LoginForm />
-        <LoginSocial />
+        {status === "loading" ? (
+          <Image src={LOADING_IMAGE} width={200} height={200} />
+        ) : (
+          <>
+            <LoginForm />
+            <LoginSocial />
+          </>
+        )}
       </Box>
     </StyledBox>
   );

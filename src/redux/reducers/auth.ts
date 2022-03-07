@@ -20,6 +20,7 @@ import {
   SignUpSuccess,
   LoginRequest,
   LoginSuccess,
+  Logout,
 } from "../../@types/redux/reducers/auth.interface";
 
 const {
@@ -33,6 +34,7 @@ const {
   SIGN_UP_SUCCESS,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  LOGOUT,
   AUTH_ERROR,
 } = AuthActionTypes;
 
@@ -89,6 +91,11 @@ export const loginSuccess = (accessToken: AccessToken): LoginSuccess => ({
   payload: { accessToken },
 });
 
+export const logout = (): Logout => ({
+  type: LOGOUT,
+  payload: {},
+});
+
 export const authError = (): AuthError => ({
   type: AUTH_ERROR,
   payload: {},
@@ -143,8 +150,12 @@ const AuthReducer = (state = initialState, action: AuthActions): AuthState => {
       return {
         ...state,
         status: "ok",
+        email: undefined,
         accessToken: action.payload.accessToken,
       };
+    case LOGOUT: {
+      return { ...initialState };
+    }
     case AUTH_ERROR:
       return {
         ...state,

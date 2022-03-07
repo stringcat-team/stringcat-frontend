@@ -19,6 +19,7 @@ export enum AuthActionTypes {
   SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS",
   LOGIN_REQUEST = "LOGIN_REQUEST",
   LOGIN_SUCCESS = "LOGIN_SUCCESS",
+  LOGOUT = "LOGOUT",
   AUTH_ERROR = "AUTH_ERROR",
 }
 
@@ -33,6 +34,7 @@ export type AuthActions =
   | SignUpSuccess
   | LoginRequest
   | LoginSuccess
+  | Logout
   | AuthError;
 
 export type AuthState = {
@@ -89,6 +91,11 @@ export interface LoginRequest {
 export interface LoginSuccess {
   type: AuthActionTypes.LOGIN_SUCCESS;
   payload: { accessToken: AccessToken };
+}
+
+export interface Logout {
+  type: AuthActionTypes.LOGOUT;
+  payload: {};
 }
 
 export interface AuthError {

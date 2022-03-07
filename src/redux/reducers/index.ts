@@ -3,6 +3,7 @@ import { AnyAction, combineReducers, Reducer } from "redux";
 import { RootStateInterface } from "../../@types/redux/rootState";
 import AuthReducer from "./auth";
 import ConfigReducer from "./config";
+import SnackbarReducer from "./snackbar";
 
 const rootReducer: Reducer<RootStateInterface, AnyAction> = (state, action) => {
   switch (action.type) {
@@ -13,6 +14,7 @@ const rootReducer: Reducer<RootStateInterface, AnyAction> = (state, action) => {
       const combineReducer = combineReducers<RootStateInterface>({
         config: ConfigReducer,
         auth: AuthReducer,
+        snackbar: SnackbarReducer,
       });
       return combineReducer(state, action);
     }

@@ -1,21 +1,30 @@
-import { Box, CSSObject, Icon as MuiIcon } from "@mui/material";
+import { Box, CSSObject, Icon as MuiIcon, styled } from "@mui/material";
 import React from "react";
 
 interface IconProps {
   type: string;
+  fontSize?: string;
   sx?: CSSObject;
 }
 
-const Icon = ({ type, sx }: IconProps) => {
+const StyledIcon = styled(MuiIcon)<{ iconSize?: string }>(({ theme, iconSize }) => ({
+  color: "inherit",
+  "&.material-icons": {
+    fontSize: iconSize,
+  },
+}));
+
+const Icon = ({ type, sx, fontSize }: IconProps) => {
   return (
-    <MuiIcon className="notranslate" sx={sx}>
+    <StyledIcon className="notranslate" sx={sx} iconSize={fontSize}>
       {type}
-    </MuiIcon>
+    </StyledIcon>
   );
 };
 
 Icon.defaultProps = {
   sx: {},
+  fontSize: undefined,
 };
 
 export default Icon;

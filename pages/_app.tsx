@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ThemeProvider } from "@mui/material/styles";
+import { SnackbarProvider } from "notistack";
 import { AppProps } from "next/app";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
@@ -21,9 +22,15 @@ const MyApp = (props: MyAppProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...pageProps} />
+        <SnackbarProvider
+          maxSnack={1}
+          autoHideDuration={2000}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </ThemeProvider>
     </CacheProvider>
   );

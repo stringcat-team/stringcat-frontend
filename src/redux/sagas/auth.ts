@@ -4,17 +4,20 @@ import {
   AuthActionTypes,
   OauthLoginRequest,
   SendEmailRequest,
+  SignUpRequest,
   VerifyEmailCodeRequest,
 } from "../../@types/redux/reducers/auth.interface";
-import AuthService, { OauthLoginReponse } from "../../../pages/api/AuthService";
+import AuthService, { OauthLoginReponse, SignUpResponse } from "../../../pages/api/AuthService";
 import {
   authError,
   oauthLoginSuccess,
   sendEmailSuccess,
+  signUpSuccess,
   verifyEmailCodeSuccess,
 } from "../reducers/auth";
 
-const { OAUTH_LOGIN_REQUEST, SEND_EMAIL_REQUEST, VERIFY_EMAIL_CODE_REQUEST } = AuthActionTypes;
+const { OAUTH_LOGIN_REQUEST, SEND_EMAIL_REQUEST, VERIFY_EMAIL_CODE_REQUEST, SIGN_UP_REQUEST } =
+  AuthActionTypes;
 
 function* oauthLoginRequest({ payload }: OauthLoginRequest) {
   try {
@@ -77,6 +80,23 @@ function* verifyEmailCodeRequest({ payload }: VerifyEmailCodeRequest) {
   }
 }
 
+function* signUpRequest({ payload }: SignUpRequest) {
+  try {
+    const { request, router } = payload;
+    const response: SignUpResponse = yield call(AuthService.signUp, request);
+    if (response.data?.accessToken) {
+      yield put(signUpSuccess(response.data.accessToken));
+      router.push("/");
+      return;
+    }
+    if (response.code === "CF01") {
+      throw new Error("이미 존재하는 이메일입니다.");
+    }
+  } catch (error) {
+    yield put(authError());
+  }
+}
+
 function* oauthRefreshTokenRequestWatcher() {
   yield takeLatest(OAUTH_LOGIN_REQUEST, oauthLoginRequest);
 }
@@ -89,10 +109,15 @@ function* verifyEmailCodeRequestWatcher() {
   yield takeLatest(VERIFY_EMAIL_CODE_REQUEST, verifyEmailCodeRequest);
 }
 
+function* signUpRequestWatcher() {
+  yield takeLatest(SIGN_UP_REQUEST, signUpRequest);
+}
+
 export default function* AuthSaga() {
   yield all([
     fork(oauthRefreshTokenRequestWatcher),
     fork(sendEmailRequestWatcher),
     fork(verifyEmailCodeRequestWatcher),
+    fork(signUpRequestWatcher),
   ]);
 }

@@ -1,6 +1,8 @@
 import { ServerResponse } from "http";
 import axios, { AxiosResponse } from "axios";
 
+export type AccessToken = string | null;
+
 export interface OauthLoginReponse {
   accessToken: string | null;
   newMember?: boolean;
@@ -16,7 +18,15 @@ export interface SignUpForm {
   nickname: string;
   password: string;
   password2: string;
-  skills?: string;
+  skills?: string[];
+}
+
+export interface SignUpResponse extends Partial<AxiosResponse> {
+  code?: string;
+  data?: {
+    accessToken: AccessToken;
+    isNewMember: boolean;
+  };
 }
 
 export interface IVerfiyEmailCodeRequest {
@@ -189,10 +199,10 @@ class AuthService {
   }
 
   static signUp(form: SignUpForm) {
-    return new Promise<AxiosResponse>((resolve, reject) => {
+    return new Promise<SignUpResponse>((resolve, reject) => {
       (async () => {
         try {
-          const response: AxiosResponse = await axios({
+          const response: SignUpResponse = await axios({
             url: `${AuthService.SERVER_ADDRESS}/${AuthService.SIGN_UP}`,
             method: "POST",
             data: { ...form },

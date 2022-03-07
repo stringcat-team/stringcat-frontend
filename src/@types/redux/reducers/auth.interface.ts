@@ -1,8 +1,10 @@
 import { NextRouter } from "next/router";
 import {
+  AccessToken,
   IVerfiyEmailCodeRequest,
   OauthCallbackCode,
   OauthLoginReponse,
+  SignUpForm,
 } from "../../../../pages/api/AuthService";
 
 export enum AuthActionTypes {
@@ -12,6 +14,8 @@ export enum AuthActionTypes {
   SEND_EMAIL_SUCCESS = "SEND_EMAIL_SUCCESS",
   VERIFY_EMAIL_CODE_REQUEST = "VERIFY_EMAIL_CODE_REQUEST",
   VERIFY_EMAIL_CODE_SUCCESS = "VERIFY_EMAIL_CODE_SUCCESS",
+  SIGN_UP_REQUEST = "SIGN_UP_REQUEST",
+  SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS",
   AUTH_ERROR = "AUTH_ERROR",
 }
 
@@ -22,10 +26,12 @@ export type AuthActions =
   | SendEmailSuccess
   | VerifyEmailCodeRequest
   | VerifyEmailCodeSuccess
+  | SignUpRequest
+  | SignUpSuccess
   | AuthError;
 
 export type AuthState = {
-  accessToken: string | null;
+  accessToken: AccessToken;
   email?: string;
   status: "ok" | "loading" | "error";
   type: string | null;
@@ -58,6 +64,16 @@ export interface VerifyEmailCodeRequest {
 export interface VerifyEmailCodeSuccess {
   type: AuthActionTypes.VERIFY_EMAIL_CODE_SUCCESS;
   payload: {};
+}
+
+export interface SignUpRequest {
+  type: AuthActionTypes.SIGN_UP_REQUEST;
+  payload: { request: SignUpForm; router: NextRouter };
+}
+
+export interface SignUpSuccess {
+  type: AuthActionTypes.SIGN_UP_SUCCESS;
+  payload: { accessToken: AccessToken };
 }
 
 export interface AuthError {

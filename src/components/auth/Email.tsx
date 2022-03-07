@@ -10,12 +10,15 @@ const StyledBox = styled(Box)(({ theme }) => ({
   height: 400,
   padding: theme.spacing(3),
   position: "relative",
+  justifyContent: "center",
+  display: "flex",
+  alignItems: "center",
 }));
 
 const Email = () => {
   return (
     <StyledBox>
-      <Logo />
+      <Logo email />
       <EmailVerifier />
     </StyledBox>
   );

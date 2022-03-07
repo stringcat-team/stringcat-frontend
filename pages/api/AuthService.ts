@@ -19,6 +19,11 @@ export interface SignUpForm {
   skills?: string;
 }
 
+export interface VerfiyEmailCodeRequest {
+  code: string;
+  email: string;
+}
+
 export const KAKAO_AUTH_KEY = `${process.env.NEXT_PUBLIC_KAKAO_AUTH_KEY}`;
 export const GITHUB_AUTH_KEY = `${process.env.NEXT_PUBLIC_GITHUB_AUTH_KEY}`;
 export const GOOGLE_AUTH_KEY = `${process.env.NEXT_PUBLIC_GOOGLE_AUTH_KEY}`;
@@ -37,7 +42,9 @@ class AuthService {
 
   static SERVER_GOOGLE = "auth/google";
 
-  static SEND_MAIL = "mail/send/auth";
+  static SEND_MAIL = "auth/mail/send/verify";
+
+  static VERIFY_CODE = "auth/mail/verify/email";
 
   static SIGN_UP = "auth/sign-up";
 
@@ -150,12 +157,28 @@ class AuthService {
           const response: AxiosResponse = await axios({
             url: `${AuthService.SERVER_ADDRESS}/${AuthService.SEND_MAIL}`,
             method: "POST",
-            data: {
-              content: "테스트 이메일이 발송되었습니다 :)",
-              email,
-              title: "[stringcat] 회원가입을 위한 이메일 인증",
-              type: "VERIFIER",
+            data: `${email}`,
+            headers: {
+              "Content-type": "application/json",
             },
+            params: { type: "VERIFIER" },
+          });
+          resolve(response);
+        } catch (e) {
+          reject(e);
+        }
+      })();
+    });
+  }
+
+  static verifyCode(request: VerfiyEmailCodeRequest) {
+    return new Promise<AxiosResponse>((resolve, reject) => {
+      (async () => {
+        try {
+          const response: AxiosResponse = await axios({
+            url: `${AuthService.SERVER_ADDRESS}/${AuthService.VERIFY_CODE}`,
+            method: "POST",
+            data: { ...request, type: "VERIFIER" },
           });
           resolve(response);
         } catch (e) {

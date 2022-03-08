@@ -1,7 +1,10 @@
-/* eslint-disable no-param-reassign */
 import { Box, Button, styled } from "@mui/material";
+import { useRouter } from "next/router";
 import React, { ChangeEvent, FormEventHandler, useState } from "react";
-import AuthService from "../../../pages/api/AuthService";
+import { useDispatch, useSelector } from "react-redux";
+import AuthService, { SignUpForm } from "../../../pages/api/AuthService";
+import { RootState } from "../../redux/reducers";
+import { signUpRequest } from "../../redux/reducers/auth";
 import Input from "../Input";
 import Logo from "../Logo";
 
@@ -25,24 +28,25 @@ const ButtonBox = styled(Box)(({ theme }) => ({
 }));
 
 const SignUp = () => {
-  const [form, setForm] = useState({
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { email } = useSelector((state: RootState) => state.auth);
+  const [form, setForm] = useState<SignUpForm>({
     email: "",
     nickname: "",
     password: "",
     password2: "",
-    skills: "",
+    skills: [],
     intro: "",
     githubUrl: "",
   });
 
-  const { email, nickname, password, password2, skills, intro, githubUrl } = form;
+  const { nickname, password, password2, skills, intro, githubUrl } = form;
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    try {
-      event.preventDefault();
-      const response = AuthService.signUp(form);
-    } catch (error) {
-      console.log(error);
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
+    if (email) {
+      dispatch(signUpRequest({ ...form, email }, router));
     }
   };
 
@@ -63,7 +67,7 @@ const SignUp = () => {
           helperText="인증이 완료된 이메일입니다."
           placeholder="이메일"
           sx={{ mb: 1 }}
-          required
+          disabled
         />
         <Input
           fullWidth

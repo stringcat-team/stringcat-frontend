@@ -3,10 +3,12 @@ import { AppBar, Box, Button, styled, TextField, Toolbar } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { MouseEventHandler } from "react";
+import { enqueueSnackbar } from "../../redux/reducers/snackbar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers";
 import { logout } from "../../redux/reducers/auth";
 import SearchBar from "../questions/SearchBar";
+import SnackBar from "../SnackBar";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
@@ -33,6 +35,14 @@ const Header = () => {
     router.back();
   };
 
+  const onClickMessage = () => {
+    dispatch(
+      enqueueSnackbar({
+        message: "스낵바 테스팅중입니다.",
+        options: { variant: "info" },
+      }),
+    );
+    
   const onClickLogout = () => {
     dispatch(logout());
   };
@@ -55,7 +65,7 @@ const Header = () => {
             </StyledButton>
           </Link>
           <SearchBar />
-          <StyledButton>
+          <StyledButton onClick={onClickMessage}>
             <NotificationsActive />
           </StyledButton>
 

@@ -1,6 +1,8 @@
 import { ServerResponse } from "http";
 import axios, { AxiosResponse } from "axios";
 
+export type AccessToken = string | null;
+
 export interface OauthLoginReponse {
   accessToken: string | null;
   newMember?: boolean;
@@ -16,7 +18,27 @@ export interface SignUpForm {
   nickname: string;
   password: string;
   password2: string;
-  skills?: string;
+  skills?: string[];
+}
+
+export interface SignUpResponse extends Partial<AxiosResponse> {
+  code?: string;
+  data?: {
+    accessToken: AccessToken;
+    isNewMember: boolean;
+  };
+}
+
+export type LoginResponse = SignUpResponse;
+
+export interface LoginForm {
+  email: string;
+  password: string;
+}
+
+export interface IVerfiyEmailCodeRequest {
+  code: string;
+  email: string;
 }
 
 export const KAKAO_AUTH_KEY = `${process.env.NEXT_PUBLIC_KAKAO_AUTH_KEY}`;
@@ -37,9 +59,13 @@ class AuthService {
 
   static SERVER_GOOGLE = "auth/google";
 
-  static SEND_MAIL = "mail/send/auth";
+  static SEND_MAIL = "auth/mail/send/verify";
+
+  static VERIFY_CODE = "auth/mail/verify/email";
 
   static SIGN_UP = "auth/sign-up";
+
+  static LOGIN = "auth/login";
 
   static checkRefreshToken(accessToken: string | string[], url: string) {
     return new Promise<OauthLoginReponse>((resolve, reject) => {
@@ -150,12 +176,28 @@ class AuthService {
           const response: AxiosResponse = await axios({
             url: `${AuthService.SERVER_ADDRESS}/${AuthService.SEND_MAIL}`,
             method: "POST",
-            data: {
-              content: "테스트 이메일이 발송되었습니다 :)",
-              email,
-              title: "[stringcat] 회원가입을 위한 이메일 인증",
-              type: "VERIFIER",
+            data: `${email}`,
+            headers: {
+              "Content-type": "application/json",
             },
+            params: { type: "VERIFIER" },
+          });
+          resolve(response);
+        } catch (e) {
+          reject(e);
+        }
+      })();
+    });
+  }
+
+  static verifyCode(request: IVerfiyEmailCodeRequest) {
+    return new Promise<AxiosResponse>((resolve, reject) => {
+      (async () => {
+        try {
+          const response: AxiosResponse = await axios({
+            url: `${AuthService.SERVER_ADDRESS}/${AuthService.VERIFY_CODE}`,
+            method: "POST",
+            data: { ...request, type: "VERIFIER" },
           });
           resolve(response);
         } catch (e) {
@@ -166,11 +208,28 @@ class AuthService {
   }
 
   static signUp(form: SignUpForm) {
-    return new Promise<AxiosResponse>((resolve, reject) => {
+    return new Promise<SignUpResponse>((resolve, reject) => {
       (async () => {
         try {
-          const response: AxiosResponse = await axios({
+          const response: SignUpResponse = await axios({
             url: `${AuthService.SERVER_ADDRESS}/${AuthService.SIGN_UP}`,
+            method: "POST",
+            data: { ...form },
+          });
+          resolve(response);
+        } catch (e) {
+          reject(e);
+        }
+      })();
+    });
+  }
+
+  static login(form: LoginForm) {
+    return new Promise<LoginResponse>((resolve, reject) => {
+      (async () => {
+        try {
+          const response: LoginResponse = await axios({
+            url: `${AuthService.SERVER_ADDRESS}/${AuthService.LOGIN}`,
             method: "POST",
             data: { ...form },
           });

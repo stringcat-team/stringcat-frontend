@@ -1,6 +1,10 @@
 import { Box, Button, styled, Typography, useTheme } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/reducers";
+import { LOADING_IMAGE } from "../../utils/const";
 import Logo from "../Logo";
 import LoginForm from "./LoginForm";
 import LoginSocial from "./LoginSocial";
@@ -14,16 +18,9 @@ const StyledBox = styled(Box)(({ theme }) => ({
   position: "relative",
 }));
 
-const StyledButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  borderRadius: 18,
-  "&:hover": {
-    background: theme.palette.primary.main,
-  },
-}));
-
 const Login = () => {
   const theme = useTheme();
+  const { status } = useSelector((state: RootState) => state.auth);
 
   return (
     <StyledBox>
@@ -35,23 +32,14 @@ const Login = () => {
         개발자들을 위한 커뮤니티 stringcat
       </Typography>
       <Box display="flex" justifyContent="space-around" mb={1}>
-        <LoginForm />
-        <LoginSocial />
-      </Box>
-      <Box display="flex" justifyContent="space-around">
-        <Box flex={1} pr={1} display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="body2">비밀번호를 잊으셨나요?</Typography>
-          <Button variant="contained" disableElevation>
-            로그인 하기
-          </Button>
-        </Box>
-        <Box flex={1} pl={2} display="flex" justifyContent="center" alignItems="center">
-          <Link passHref href="/auth/email">
-            <StyledButton variant="text" fullWidth>
-              E-mail로 가입하기
-            </StyledButton>
-          </Link>
-        </Box>
+        {status === "loading" ? (
+          <Image src={LOADING_IMAGE} width={200} height={200} />
+        ) : (
+          <>
+            <LoginForm />
+            <LoginSocial />
+          </>
+        )}
       </Box>
     </StyledBox>
   );

@@ -3,6 +3,9 @@ import { AppBar, Box, Button, styled, TextField, Toolbar } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { MouseEventHandler } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/reducers";
+import { logout } from "../../redux/reducers/auth";
 import SearchBar from "../questions/SearchBar";
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -23,8 +26,15 @@ const Container = styled(Box)(({ theme }) => ({
 
 const Header = () => {
   const router = useRouter();
+  const { accessToken } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+
   const onClickBack: MouseEventHandler = () => {
     router.back();
+  };
+
+  const onClickLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -48,12 +58,19 @@ const Header = () => {
           <StyledButton>
             <NotificationsActive />
           </StyledButton>
-          <Link passHref href="/mypage">
-            <StyledButton>마이페이지</StyledButton>
-          </Link>
-          <Link passHref href="/auth/login">
-            <StyledButton>로그인</StyledButton>
-          </Link>
+
+          {!accessToken ? (
+            <Link passHref href="/auth/login">
+              <StyledButton>로그인</StyledButton>
+            </Link>
+          ) : (
+            <>
+              <Link passHref href="/mypage">
+                <StyledButton>마이페이지</StyledButton>
+              </Link>
+              <StyledButton onClick={onClickLogout}>로그아웃</StyledButton>
+            </>
+          )}
         </Container>
       </Toolbar>
     </AppBar>

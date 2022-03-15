@@ -3,8 +3,8 @@ import { AppBar, Box, Button, styled, TextField, Toolbar } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { MouseEventHandler } from "react";
-import { enqueueSnackbar } from "../../redux/reducers/snackbar";
 import { useDispatch, useSelector } from "react-redux";
+import { enqueueSnackbar } from "../../redux/reducers/snackbar";
 import { RootState } from "../../redux/reducers";
 import { logout } from "../../redux/reducers/auth";
 import SearchBar from "../questions/SearchBar";
@@ -42,7 +42,7 @@ const Header = () => {
         options: { variant: "info" },
       }),
     );
-    
+  };
   const onClickLogout = () => {
     dispatch(logout());
   };
